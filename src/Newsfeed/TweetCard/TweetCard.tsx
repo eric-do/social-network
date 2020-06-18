@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ITweet } from '../Newsfeed';
 
 const CardContainer = styled.div`
   color: red;
@@ -17,23 +18,11 @@ const CreatedDate = styled.span``;
 
 const TextContainer = styled.div``;
 
-const SocialContainer = styled.div``;
-
 const SocialButton = styled.div``;
 
-interface tweetProps {
+export interface tweetProps {
   key: number;
-  tweet: {
-    tweet_id: number;
-    handle: string;
-    alias: string;
-    avatar: string;
-    created_at: string;
-    full_text: string;
-    favorite_count: number;
-    reply_count: number;
-    retweet_count: number;
-  }
+  tweet: ITweet
 }
 
 const TweetCard = ({ tweet }: tweetProps) => {
