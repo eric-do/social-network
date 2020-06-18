@@ -2,7 +2,7 @@ const data = [
   {
     tweet_id: 1,
     handle: 'eric',
-    alias: 'eric alias',
+    alias: 'Cool guy',
     created_at: '2020-06-17',
     avatar: 'https://loremflickr.com/320/240/dog',
     full_text: 'it\'s my birthday',
@@ -13,7 +13,7 @@ const data = [
   {
     tweet_id: 2,
     handle: 'Tina',
-    alias: 'Tina alias',
+    alias: 'Cool girl',
     created_at: '2020-06-17',
     avatar: 'https://loremflickr.com/320/240/dog',
     full_text: 'it\'s my brother\'s birthday',

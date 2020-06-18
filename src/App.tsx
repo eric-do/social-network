@@ -1,14 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
 import Newsfeed from './Newsfeed/Newsfeed';
 
+interface AppProps {
+  dark: boolean
+}
+
+const AppContainer = styled.div<AppProps>`
+  background-color: ${props => props.dark ? 'rgb(22, 32, 43)' : 'white'} 
+`;
+
 function App() {
   return (
-    <div className="App">
+    <AppContainer dark className="App">
       <div>Tweeter</div>
       <Newsfeed />
-    </div>
+    </AppContainer>
   );
 }
 

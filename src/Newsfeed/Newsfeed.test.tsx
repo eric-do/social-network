@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Newsfeed from './Newsfeed';
-import data from './dummy';
 
 test('Renders section title', () => {
   const { getByText } = render(<Newsfeed />);

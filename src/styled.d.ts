@@ -5,7 +5,7 @@ import 'styled-components'
 declare module 'styled-components' {
   export interface DefaultTheme {
     borderRadius: string
-
+    dark: boolean
     colors: {
       main: string
       secondary: string
