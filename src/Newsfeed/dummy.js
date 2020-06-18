@@ -6,7 +6,7 @@ const data = [
     created_at: '2020-06-17',
     avatar: 'https://loremflickr.com/320/240/dog',
     full_text: 'it\'s my birthday',
-    favorite_count: 1,
+    favorite_count: 564,
     reply_count: 4,
     retweet_count: 2
   },

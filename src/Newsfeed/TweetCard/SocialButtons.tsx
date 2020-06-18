@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import styled from 'styled-components';
 import { fetchTweet } from '../api';
+import SocialButton from './SocialButton';
 
 interface SocialProps {
   tweet_id: number;
@@ -34,13 +35,24 @@ const SocialButtons = (props: SocialProps) => {
     }
   }
 
-  useEffect(() => {
-    getTweet(tweet_id);
-  })
+  // useEffect(() => {
+  //   getTweet(tweet_id);
+  // })
 
   return (
     <SocialContainer>
-
+      <SocialButton
+        type="reply" 
+        social_count={socialCounts.reply_count} 
+      />
+      <SocialButton 
+        type="retweet"
+        social_count={socialCounts.retweet_count} 
+      />
+      <SocialButton 
+        type="favorite"
+        social_count={socialCounts.favorite_count}
+      />
     </SocialContainer>
   );
 }

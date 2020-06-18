@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ITweet } from '../Newsfeed';
+import SocialButtons from './SocialButtons';
 
 const CardContainer = styled.div`
   color: red;
@@ -37,6 +38,12 @@ const TweetCard = ({ tweet }: tweetProps) => {
       <TextContainer>
         {tweet.full_text}
       </TextContainer>
+      <SocialButtons 
+        tweet_id={tweet.tweet_id} 
+        reply_count={tweet.reply_count} 
+        retweet_count={tweet.retweet_count}
+        favorite_count={tweet.favorite_count}
+      />
     </CardContainer>
   )
 };
