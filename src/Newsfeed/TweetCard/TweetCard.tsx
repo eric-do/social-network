@@ -9,6 +9,7 @@ const CardContainer = styled.div`
   border: 1px solid red;
   display: flex;
   margin: 5px 5px;
+  padding: 5px 15px;
 `;
 
 const AvatarContainer = styled.div`
@@ -21,11 +22,12 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px 5px;
+  padding-left: 5px;
 `;
 
 const Avatar = styled.img`
-  max-width: 100%;
+  width: 50px;
+  border-radius: 50%;
 `;
 
 const TextContainer = styled.div`
@@ -51,6 +53,10 @@ const Handle = styled(TweetInfo)`
   color: #8899A6;
 `;
 
+const DateDivider = styled(TweetInfo)`
+  color: #8899A6;
+`;
+
 const CreatedDate = styled(TweetInfo)`
   color: #8899A6;
 `;
@@ -61,6 +67,7 @@ const TweetText = styled.span`
   color: #FFFFFF;
   font-size: 15px;
   line-height: 120%;
+  white-space: pre-wrap;
 `;
 
 export interface tweetProps {
@@ -69,6 +76,14 @@ export interface tweetProps {
 }
 
 const TweetCard = ({ tweet }: tweetProps) => {
+  const currentDate = moment().startOf('day');
+  const createdDate = moment(tweet.created_at, 'YYYY-MM-DD');
+  const durationInWeeks = moment.duration(currentDate.diff(createdDate)).asWeeks();
+  const relativeTime = moment(tweet.created_at).fromNow(true);
+  const absoluteTime = createdDate.format('LL');
+
+  const displayDate = durationInWeeks > 4 ? absoluteTime : relativeTime;
+
   return (
     <CardContainer>
       <AvatarContainer>
@@ -78,7 +93,8 @@ const TweetCard = ({ tweet }: tweetProps) => {
         <HandleContainer>
           <Alias>{tweet.alias}</Alias>
           <Handle>@{tweet.handle}</Handle>
-          <CreatedDate>{moment(tweet.created_at).fromNow(true)}</CreatedDate>
+          <DateDivider> · </DateDivider>
+          <CreatedDate>{displayDate}</CreatedDate>
         </HandleContainer>
         <TweetTextContainer>
           <TweetText>
