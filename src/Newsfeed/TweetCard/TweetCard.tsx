@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from '../utils/moment';
+import moment , { getDisplayDate} from '../utils/moment';
 import { ITweet } from '../types';
 import SocialSection from './SocialSection';
 
@@ -76,13 +76,8 @@ export interface tweetProps {
 }
 
 const TweetCard = ({ tweet }: tweetProps) => {
-  const currentDate = moment().startOf('day');
-  const createdDate = moment(tweet.created_at, 'YYYY-MM-DD');
-  const durationInWeeks = moment.duration(currentDate.diff(createdDate)).asWeeks();
-  const relativeTime = moment(tweet.created_at).fromNow(true);
-  const absoluteTime = createdDate.format('LL');
 
-  const displayDate = durationInWeeks > 4 ? absoluteTime : relativeTime;
+  const displayDate = getDisplayDate(tweet.created_at);
 
   return (
     <CardContainer>

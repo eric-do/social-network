@@ -21,4 +21,14 @@ moment.updateLocale('en', {
   }
 });
 
+export const getDisplayDate = createdAt => {
+  const currentDate = moment().startOf('day');
+  const createdDate = moment(createdAt, 'YYYY-MM-DD');
+  const durationInWeeks = moment.duration(currentDate.diff(createdDate)).asWeeks();
+  const relativeTime = moment(createdAt).fromNow(true);
+  const absoluteTime = createdDate.format('LL');
+
+  return durationInWeeks > 4 ? absoluteTime : relativeTime;
+}
+
 export default moment;
