@@ -3,18 +3,6 @@ import TweetCard from './TweetCard/TweetCard';
 import styled from 'styled-components';
 import data from './dummy';
 
-export interface ITweet {
-  tweet_id: number;
-  handle: string;
-  alias: string;
-  avatar: string;
-  created_at: string;
-  full_text: string;
-  favorite_count: number;
-  reply_count: number;
-  retweet_count: number;
-}
-
 const FeedContainer = styled.div`
   max-width: 600px;
 `;

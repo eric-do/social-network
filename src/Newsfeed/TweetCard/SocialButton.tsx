@@ -6,9 +6,13 @@ interface ISocialProps {
   social_count: number;
 };
 
+const SocialButtonContain = styled.div`
+  width: 150px;
+`;
+
 const SocialButton = ({ type, social_count }: ISocialProps) => {
   return (
-    <div>{ social_count }</div>
+    <SocialButtonContain>{ social_count }</SocialButtonContain>
   )
 }
 

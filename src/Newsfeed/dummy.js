@@ -16,7 +16,7 @@ const data = [
     alias: 'Cool girl',
     created_at: '2020-06-17',
     avatar: 'https://loremflickr.com/320/240/cat',
-    full_text: 'it\'s my brother\'s birthday',
+    full_text: 'it\'s my brother\'s birthday! I really love him because he\'s the best brother. Sometimes I\'m like, "how am i so lucky"',
     favorite_count: 2,
     reply_count: 6,
     retweet_count: 3

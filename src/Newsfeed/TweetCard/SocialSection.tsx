@@ -10,7 +10,15 @@ interface SocialProps {
   favorite_count: number;
 }
 
-const SocialContainer = styled.div``;
+const SocialContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  border: 1px solid yellow;
+  color: #8899A6;
+  font-size: 13px;
+`;
 
 const SocialButtons = (props: SocialProps) => {
   
