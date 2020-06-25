@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment , { getDisplayDate} from '../utils/moment';
+import { getDisplayDate} from '../utils/moment';
 import { ITweet } from '../types';
 import SocialSection from './SocialSection';
 

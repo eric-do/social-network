@@ -50,7 +50,7 @@ const SocialButtons = (props: SocialProps) => {
   return (
     <SocialContainer>
       <SocialButton
-        type="reply" 
+        type="comment" 
         social_count={socialCounts.reply_count} 
       />
       <SocialButton 

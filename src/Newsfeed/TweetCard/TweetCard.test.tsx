@@ -35,7 +35,6 @@ test('Displays post date in shortened relative time when post less than or equal
 
 test('Displays post date in full date when Tweet is older than 4 weeks', () => {
   const { getByText } = render(<TweetCard key={data[1].tweet_id} tweet={data[1]}/>);
-  const postDate = data[0].created_at;
   const displayTime = getByText('June 17, 2018');
  
   expect(displayTime).toBeInTheDocument();
