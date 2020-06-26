@@ -1,8 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getDisplayDate} from '../utils/moment';
-import { ITweet } from '../types';
+import { ITweet } from '../lib/types';
 import SocialSection from './SocialSection';
+
+export interface tweetProps {
+  key: number;
+  tweet: ITweet
+}
+
+const TweetCard = ({ tweet }: tweetProps) => {
+
+  const displayDate = getDisplayDate(tweet.created_at);
+
+  return (
+    <CardContainer>
+      <AvatarContainer>
+        <Avatar src={tweet.avatar} />
+      </AvatarContainer>
+      <ContentContainer>
+        <HandleContainer>
+          <Alias>{tweet.alias}</Alias>
+          <Handle>@{tweet.handle}</Handle>
+          <DateDivider> · </DateDivider>
+          <CreatedDate>{displayDate}</CreatedDate>
+        </HandleContainer>
+        <TweetTextContainer>
+          <TweetText>
+            {tweet.full_text}
+          </TweetText>
+        </TweetTextContainer>
+        <SocialSection 
+          tweet_id={tweet.tweet_id} 
+          reply_count={tweet.reply_count} 
+          retweet_count={tweet.retweet_count}
+          favorite_count={tweet.favorite_count}
+        />
+      </ContentContainer>
+    </CardContainer>
+  )
+};
 
 const CardContainer = styled.div`
   color: red;
@@ -69,42 +106,5 @@ const TweetText = styled.span`
   line-height: 120%;
   white-space: pre-wrap;
 `;
-
-export interface tweetProps {
-  key: number;
-  tweet: ITweet
-}
-
-const TweetCard = ({ tweet }: tweetProps) => {
-
-  const displayDate = getDisplayDate(tweet.created_at);
-
-  return (
-    <CardContainer>
-      <AvatarContainer>
-        <Avatar src={tweet.avatar} />
-      </AvatarContainer>
-      <ContentContainer>
-        <HandleContainer>
-          <Alias>{tweet.alias}</Alias>
-          <Handle>@{tweet.handle}</Handle>
-          <DateDivider> · </DateDivider>
-          <CreatedDate>{displayDate}</CreatedDate>
-        </HandleContainer>
-        <TweetTextContainer>
-          <TweetText>
-            {tweet.full_text}
-          </TweetText>
-        </TweetTextContainer>
-        <SocialSection 
-          tweet_id={tweet.tweet_id} 
-          reply_count={tweet.reply_count} 
-          retweet_count={tweet.retweet_count}
-          favorite_count={tweet.favorite_count}
-        />
-      </ContentContainer>
-    </CardContainer>
-  )
-};
 
 export default TweetCard;

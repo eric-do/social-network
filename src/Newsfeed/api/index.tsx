@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITweet } from '../types';
+import { ITweet } from '../lib/types';
 
 const fetchNewsfeed = async (user_id: number) : Promise<ITweet[]> => {
   try {
