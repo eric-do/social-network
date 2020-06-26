@@ -16,6 +16,6 @@ const socialColorMap: ISocialColorMap = {
   retweet: 'rgb(23, 191, 99)'
 }
 
-export const getSocialIconClass = (type: string) => socialIconMap[type];
+export const getSocialIconClass = (type: string): IconDefinition => socialIconMap[type];
 
-export const getSocialColor = (type: string) => socialColorMap[type];
+export const getSocialColor = (type: string): string => socialColorMap[type];
