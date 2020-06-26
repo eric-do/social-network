@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getSocialIconClass } from '../lib/social';
+import { getSocialIconClass } from '../utils/icons';
 
 interface ISocialProps {
   type: string;

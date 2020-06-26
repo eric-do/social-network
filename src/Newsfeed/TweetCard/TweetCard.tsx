@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { getDisplayDate} from '../utils/moment';
-import { ITweet } from '../lib/types';
+import { ITweet } from '../types/tweets';
 import SocialSection from './SocialSection';
 
 export interface tweetProps {

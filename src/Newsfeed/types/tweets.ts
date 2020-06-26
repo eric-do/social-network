@@ -11,11 +11,3 @@ export interface ITweet {
   reply_count: number;
   retweet_count: number;
 }
-
-export interface ISocialIconMap {
-  [key: string]: IconDefinition
-}
-
-export interface ISocialColorMap {
-  [key: string]: string
-}

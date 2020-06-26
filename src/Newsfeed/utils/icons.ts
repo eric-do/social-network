@@ -1,14 +1,8 @@
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { ISocialIconMap, ISocialColorMap } from '../types/social';
 
-interface ISocialIconMap {
-  [key: string]: IconDefinition
-}
-
-interface ISocialColorMap {
-  [key: string]: string
-}
 
 const socialIconMap: ISocialIconMap = {
   comment: faComment,
