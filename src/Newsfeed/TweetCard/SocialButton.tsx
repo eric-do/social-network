@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { getSocialIconClass, getSocialColor } from '../utils/icons';
+import { getSocialIconClass, getSocialColor, StyledIcon } from '../utils/icons';
 
 interface ISocialProps {
   type: string;
@@ -29,10 +29,6 @@ const SocialButton = ({ type, active, count }: ISocialProps) => {
     </SocialButtonContainer>
   )
 }
-
-const StyledIcon = ({icon}: {icon: IconDefinition}) => (
-  <FontAwesomeIcon icon={icon} />
-);
 
 const SocialButtonContainer = styled.div<{hover: boolean; active: boolean; type: string}>`
   width: 33%;

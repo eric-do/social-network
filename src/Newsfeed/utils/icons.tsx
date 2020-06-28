@@ -1,7 +1,9 @@
+import React from 'react';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { faHeart, faComment } from '@fortawesome/free-regular-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { ISocialIconMap, ISocialColorMap } from '../types/social';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const socialIconMap: ISocialIconMap = {
@@ -19,3 +21,7 @@ const socialColorMap: ISocialColorMap = {
 export const getSocialIconClass = (type: string): IconDefinition => socialIconMap[type];
 
 export const getSocialColor = (type: string): string => socialColorMap[type];
+
+export const StyledIcon = ({ icon }: { icon: IconDefinition }) => (
+  <FontAwesomeIcon icon={icon} />
+);
