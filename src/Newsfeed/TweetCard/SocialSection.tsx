@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { fetchTweet } from '../api';
 import SocialButton from './SocialButton';
 import { ISocialInfo } from '../types/social';
 
@@ -13,20 +12,16 @@ const SocialContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
   width: 100%;
-  border: 1px solid yellow;
   color: #8899A6;
   font-size: 13px;
+  height: 35px;
 `;
 
 const SocialButtons = (props: SocialProps) => {
-  
-  const { tweet_id } = props;
-  const { comments, retweets, favorites} = props.social;
 
-  // useEffect(() => {
-  //   getTweet(tweet_id);
-  // })
+  const { comments, retweets, favorites} = props.social;
 
   return (
     <SocialContainer>
