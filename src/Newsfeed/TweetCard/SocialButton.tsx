@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { getSocialIconClass, getSocialColor, StyledIcon } from '../utils/icons';
+import { getSocialIconClass, getSocialColor, Icon } from '../utils/icons';
 
 interface ISocialProps {
   type: string;
@@ -14,16 +12,21 @@ const SocialButton = ({ type, active, count }: ISocialProps) => {
   const [isHovered, setHover] = useState(false);
 
   return (
-    <SocialButtonContainer active={active} 
+    <SocialButtonContainer 
+      data-testid="social-button-container"
+      active={active} 
       type={type} 
       hover={isHovered} 
       onMouseEnter={() => setHover(true)} 
       onMouseLeave={ () => setHover(false)} >
       <SocialIconContainer hover={isHovered} type={type}>
-        <Block hover={isHovered} type={type}/>
-        <StyledIconContainer>
-          <StyledIcon icon={getSocialIconClass(type)} />
-        </StyledIconContainer>
+        <OpaqueBackground 
+          data-testid="social-icon-background" 
+          hover={isHovered} 
+          type={type}/>
+        <IconContainer>
+          <Icon icon={getSocialIconClass(type)} />
+        </IconContainer>
       </SocialIconContainer>
       <SocialCount>{count}</SocialCount>
     </SocialButtonContainer>
@@ -39,15 +42,15 @@ const SocialButtonContainer = styled.div<{hover: boolean; active: boolean; type:
 `;
 
 const SocialIconContainer = styled.div<{hover: boolean; type: string}>`
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
 `
 
-const Block = styled.div<{hover: boolean; type: string}>`
+const OpaqueBackground = styled.div<{hover: boolean; type: string}>`
   background-color: ${props => props.hover ? getSocialColor(props.type) : 'inherit'};
   opacity: ${props => props.hover ? 0.1 : 1};
   height: 100%;
@@ -55,7 +58,7 @@ const Block = styled.div<{hover: boolean; type: string}>`
   border-radius: 50%;
 `;
 
-const StyledIconContainer = styled.div`
+const IconContainer = styled.div`
   opacity: 1;
   position: absolute;
 `;

@@ -22,6 +22,6 @@ export const getSocialIconClass = (type: string): IconDefinition => socialIconMa
 
 export const getSocialColor = (type: string): string => socialColorMap[type];
 
-export const StyledIcon = ({ icon }: { icon: IconDefinition }) => (
+export const Icon = ({ icon }: { icon: IconDefinition }) => (
   <FontAwesomeIcon icon={icon} />
 );
