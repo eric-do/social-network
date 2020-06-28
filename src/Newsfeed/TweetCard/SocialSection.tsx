@@ -1,13 +1,12 @@
-import React, { useState, useEffect }  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { fetchTweet } from '../api';
 import SocialButton from './SocialButton';
+import { ISocialInfo } from '../types/social';
 
 interface SocialProps {
   tweet_id: number;
-  reply_count: number;
-  retweet_count: number;
-  favorite_count: number;
+  social: ISocialInfo;
 }
 
 const SocialContainer = styled.div`
@@ -22,26 +21,8 @@ const SocialContainer = styled.div`
 
 const SocialButtons = (props: SocialProps) => {
   
-  const { tweet_id, reply_count, 
-          retweet_count, favorite_count} = props;
-
-  const [ socialCounts, setSocial ] = useState({
-    reply_count, 
-    retweet_count, 
-    favorite_count
-  });
-
-  const getTweet = async (tweet_id: number) => {
-    try {
-      const { reply_count, 
-              retweet_count, 
-              favorite_count } = await fetchTweet(tweet_id);
-              
-      setSocial({ reply_count, retweet_count, favorite_count });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  const { tweet_id } = props;
+  const { comments, retweets, favorites} = props.social;
 
   // useEffect(() => {
   //   getTweet(tweet_id);
@@ -51,15 +32,18 @@ const SocialButtons = (props: SocialProps) => {
     <SocialContainer>
       <SocialButton
         type="comment" 
-        social_count={socialCounts.reply_count} 
+        active={comments.active}
+        count={comments.count} 
       />
       <SocialButton 
         type="retweet"
-        social_count={socialCounts.retweet_count} 
+        active={retweets.active}
+        count={retweets.count} 
       />
       <SocialButton 
         type="favorite"
-        social_count={socialCounts.favorite_count}
+        active={favorites.active}
+        count={favorites.count}
       />
     </SocialContainer>
   );

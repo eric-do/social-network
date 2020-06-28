@@ -1,6 +1,6 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
-interface ISocialInfo {
+export interface ISocialInfo {
   comments: {
     active: boolean,
     count: number

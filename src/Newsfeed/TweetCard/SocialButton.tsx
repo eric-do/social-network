@@ -1,24 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getSocialIconClass } from '../utils/icons';
+import { getSocialIconClass, getSocialColor } from '../utils/icons';
 
 interface ISocialProps {
   type: string;
-  social_count: number;
+  active: boolean;
+  count: number;
 };
 
-const SocialButton = ({ type, social_count }: ISocialProps) => {
+const SocialButton = ({ type, active, count }: ISocialProps) => {
   return (
-    <SocialButtonContain>
+    <SocialButtonContain active={active} type={type}>
       <FontAwesomeIcon icon={getSocialIconClass(type)} />
-      <SocialCount>{social_count}</SocialCount>
+      <SocialCount >{count}</SocialCount>
     </SocialButtonContain>
   )
 }
 
-const SocialButtonContain = styled.div`
+const SocialButtonContain = styled.div<{active: boolean; type: string}>`
   width: 33%;
+  color: ${props => props.active ? getSocialColor(props.type) : 'inherit'};
+
+  &:hover {
+    color: ${props => getSocialColor(props.type)};
+  }
 `;
 
 const SocialCount = styled.span`

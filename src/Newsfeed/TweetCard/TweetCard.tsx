@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect }   from 'react';
 import styled from 'styled-components';
 import { getDisplayDate} from '../utils/moment';
 import { ITweet } from '../types/tweets';
 import SocialSection from './SocialSection';
+import { fetchTweet } from '../api';
 
 export interface tweetProps {
   key: number;
@@ -12,29 +13,38 @@ export interface tweetProps {
 const TweetCard = ({ tweet }: tweetProps) => {
 
   const displayDate = getDisplayDate(tweet.created_at);
+  const [ updatedTweet, setTweet ] = useState(tweet)
+
+  const getTweet = async (tweet_id: number) => {
+    try {
+      const tweet= await fetchTweet(tweet_id);
+
+      setTweet(tweet);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <CardContainer>
       <AvatarContainer>
-        <Avatar src={tweet.avatar} />
+        <Avatar src={updatedTweet.avatar} />
       </AvatarContainer>
       <ContentContainer>
         <HandleContainer>
-          <Alias>{tweet.alias}</Alias>
-          <Handle>@{tweet.handle}</Handle>
+          <Alias>{updatedTweet.alias}</Alias>
+          <Handle>@{updatedTweet.handle}</Handle>
           <DateDivider> · </DateDivider>
           <CreatedDate>{displayDate}</CreatedDate>
         </HandleContainer>
         <TweetTextContainer>
           <TweetText>
-            {tweet.full_text}
+            {updatedTweet.full_text}
           </TweetText>
         </TweetTextContainer>
         <SocialSection 
           tweet_id={tweet.tweet_id} 
-          reply_count={tweet.reply_count} 
-          retweet_count={tweet.retweet_count}
-          favorite_count={tweet.favorite_count}
+          social={tweet.social}
         />
       </ContentContainer>
     </CardContainer>

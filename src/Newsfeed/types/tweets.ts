@@ -1,4 +1,4 @@
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { ISocialInfo } from './social';
 
 export interface ITweet {
   tweet_id: number;
@@ -7,7 +7,5 @@ export interface ITweet {
   avatar: string;
   created_at: string;
   full_text: string;
-  favorite_count: number;
-  reply_count: number;
-  retweet_count: number;
+  social: ISocialInfo;
 }

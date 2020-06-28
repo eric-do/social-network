@@ -21,9 +21,20 @@ test('Displays post date in shortened relative time when post less than or equal
     created_at: moment().subtract(5, 'days').format('YYYY-MM-DD'),
     avatar: 'https://loremflickr.com/320/320/dog',
     full_text: 'it\'s my birthday',
-    favorite_count: 564,
-    reply_count: 4,
-    retweet_count: 2
+    social: {
+      comments: {
+        active: true,
+        count: 6
+      },
+      retweets: {
+        active: false,
+        count: 4
+      },
+      favorites: {
+        active: true,
+        count: 2
+      }
+    }
   }
   const { getByText } = render(<TweetCard key={tweet.tweet_id} tweet={tweet}/>);
   const postDate = tweet.created_at;
