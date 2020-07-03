@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import TweetInput from './TweetInput';
 import TweetInteractions from './TweetInteractions';
+import { cardStyle } from '../styles';
 
-const CreateTweet = () => {
+interface ICreateTweetProps {
+  user: {
+    avatar: string
+  }
+}
+
+const CreateTweet = ({ user }: ICreateTweetProps) => {
   const [ isHovered, setHover ] = useState<boolean>(false);
   const [ tweetText, updateTweetText ] = useState('');
 
@@ -15,7 +22,7 @@ const CreateTweet = () => {
       hover={isHovered}
     >
       <AvatarContainer> 
-        <Avatar />
+        <Avatar src={user.avatar}/>
       </AvatarContainer>
       <ContentContainer>
         <TweetInput 
@@ -29,11 +36,7 @@ const CreateTweet = () => {
 }
 
 const CreateTweetContainer = styled.div<{hover: boolean}>`
-  color: red;
-  border: 1px solid rgb(56, 68, 77);
-  display: flex;
-  margin: 0 5px;
-  padding: 5px 15px;
+  ${cardStyle}
   // background: ${props => props.hover ? 'rgb(255,255,255,0.02)' : 'inherit'}
 `;
 

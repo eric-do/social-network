@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import './App.css';
 import Newsfeed from './Newsfeed/Newsfeed';
 import CreateTweet from './CreateTweet/CreateTweet';
+import { user } from './dummy';
 
 interface AppProps {
   dark: boolean
@@ -13,7 +14,7 @@ function App() {
     <AppContainer dark className="App">
       <div>Tweeter</div>
       <CenterColumn>
-        <CreateTweet />
+        <CreateTweet user={user}/>
         <Newsfeed />
       </CenterColumn>
     </AppContainer>
