@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import TweetInput from './TweetInput';
-import TweetInteractions from './TweetInteractions';
+import styled from 'styled-components';
 import { cardStyle } from '../styles';
+import UserAvatar from './UserAvatar';
+import TweetForm from './TweetForm'
 
 interface ICreateTweetProps {
   user: {
-    avatar: string
+    avatar: string;
+    handle: string;
   }
 }
 
@@ -21,15 +22,9 @@ const CreateTweet = ({ user }: ICreateTweetProps) => {
       onMouseLeave={() => setHover(false)}
       hover={isHovered}
     >
-      <AvatarContainer> 
-        <Avatar src={user.avatar}/>
-      </AvatarContainer>
+      <UserAvatar user={user} />
       <ContentContainer>
-        <TweetInput 
-          tweetText={tweetText}
-          updateTweetText={updateTweetText}
-        />
-        <TweetInteractions />
+        <TweetForm />
       </ContentContainer>
     </CreateTweetContainer>
   )
@@ -40,20 +35,8 @@ const CreateTweetContainer = styled.div<{hover: boolean}>`
   // background: ${props => props.hover ? 'rgb(255,255,255,0.02)' : 'inherit'}
 `;
 
-const AvatarContainer = styled.div`
-  max-width: 100px;
-`;
-
-const Avatar = styled.img`
-  width: 50px;
-  border-radius: 50%;
-`;
-
 const ContentContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding-left: 5px;
 `;
 
