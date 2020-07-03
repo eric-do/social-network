@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import TweetInput from './TweetInput';
+import TweetInteractions from './TweetInteractions';
 
 const CreateTweet = () => {
   const [ isHovered, setHover ] = useState<boolean>(false);
+  const [ tweetText, updateTweetText ] = useState('');
 
   return (
     <CreateTweetContainer 
@@ -13,9 +15,14 @@ const CreateTweet = () => {
       hover={isHovered}
     >
       <AvatarContainer> 
+        <Avatar />
       </AvatarContainer>
       <ContentContainer>
-        <TweetInput />
+        <TweetInput 
+          tweetText={tweetText}
+          updateTweetText={updateTweetText}
+        />
+        <TweetInteractions />
       </ContentContainer>
     </CreateTweetContainer>
   )
@@ -34,17 +41,17 @@ const AvatarContainer = styled.div`
   max-width: 100px;
 `;
 
+const Avatar = styled.img`
+  width: 50px;
+  border-radius: 50%;
+`;
+
 const ContentContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding-left: 5px;
-`;
-
-const Avatar = styled.img`
-  width: 50px;
-  border-radius: 50%;
 `;
 
 export default CreateTweet;

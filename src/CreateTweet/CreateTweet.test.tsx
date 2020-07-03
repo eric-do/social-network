@@ -15,3 +15,10 @@ it('should render text input field', () => {
   const inputField = getByPlaceholderText(`What's happening?`);
   expect(inputField).toBeTruthy();
 })
+
+it('should render tweet interactions', () => {
+  const { getByTestId } = render(<CreateTweet />);
+
+  const tweetInteractions = getByTestId(`tweet-interactions`);
+  expect(tweetInteractions).toBeTruthy();
+})
