@@ -11,9 +11,10 @@ export interface tweetProps {
 }
 
 const TweetCard = ({ tweet }: tweetProps) => {
-
   const displayDate = getDisplayDate(tweet.created_at);
+
   const [ updatedTweet, setTweet ] = useState(tweet)
+  const [ isHovered, setHovered ] = useState(false);
 
   const getTweet = async (tweet_id: number) => {
     try {
@@ -26,7 +27,12 @@ const TweetCard = ({ tweet }: tweetProps) => {
   }
 
   return (
-    <CardContainer>
+    <CardContainer
+      data-testid="tweet-card"
+      hover={isHovered}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <AvatarContainer>
         <Avatar src={updatedTweet.avatar} />
       </AvatarContainer>
@@ -51,17 +57,17 @@ const TweetCard = ({ tweet }: tweetProps) => {
   )
 };
 
-const CardContainer = styled.div`
+const CardContainer = styled.div<{hover: boolean}>`
   color: red;
-  border: 1px solid red;
+  border: 1px solid rgb(56, 68, 77);
   display: flex;
-  margin: 5px 5px;
+  margin: 0 5px;
   padding: 5px 15px;
+  background: ${props => props.hover ? 'rgb(255,255,255,0.02)' : 'inherit'}
 `;
 
 const AvatarContainer = styled.div`
   max-width: 100px;
-  border: 1px solid red;
 `;
 
 const ContentContainer = styled.div`

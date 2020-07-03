@@ -3,10 +3,6 @@ import TweetCard from './TweetCard/TweetCard';
 import styled from 'styled-components';
 import data from './dummy';
 
-const FeedContainer = styled.div`
-  max-width: 600px;
-`;
-
 const Newsfeed = () => {
   return (
     <FeedContainer>
@@ -17,5 +13,7 @@ const Newsfeed = () => {
     </FeedContainer>
   )
 };
+
+const FeedContainer = styled.div``;
 
 export default Newsfeed;

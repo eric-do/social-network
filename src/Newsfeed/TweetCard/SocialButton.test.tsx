@@ -30,3 +30,12 @@ test('Color and background are updated on hover and unhover', () => {
   expect(socialButtonContainer).toHaveStyle(`color: 'inherit'`);
   expect(socialIconBackground).toHaveStyle(`color: 'inherit'`);
 });
+
+xtest('Social count should be truncated', () => {
+  const type = "comment";
+  const { getByText } = render(<SocialButton type={type} active={false} count={20000}/>);
+
+  const countContainer = getByText('20.0k');
+
+  expect(countContainer).toBeInTheDocument();
+})
