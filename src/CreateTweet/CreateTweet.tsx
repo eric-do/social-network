@@ -37,7 +37,7 @@ const CreateTweetContainer = styled.div<{hover: boolean}>`
 
 const ContentContainer = styled.div`
   width: 100%;
-  padding-left: 5px;
+  padding-left: 10px;
 `;
 
 export default CreateTweet;

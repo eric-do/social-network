@@ -75,7 +75,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-left: 5px;
+  padding-left: 10px;
 `;
 
 const Avatar = styled.img`
@@ -119,6 +119,7 @@ const TweetTextContainer = styled(TextContainer)``;
 const TweetText = styled.span`
   color: #FFFFFF;
   font-size: 15px;
+  font-weight: 400;
   line-height: 120%;
   white-space: pre-wrap;
 `;
