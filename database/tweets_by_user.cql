@@ -4,7 +4,7 @@ CREATE TABLE tweets_by_user (
   handle text,
   alias text,
   tweet_id int,
-  tweet_date text,
+  tweet_date date,
   created_at timestamp,
   avatar text,
   full_text text,

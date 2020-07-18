@@ -8,13 +8,13 @@ const client = new cassandra.Client({
   keyspace: 'tweeter'
 });
  
-const query = `SELECT * FROM tweets_by_user WHERE handle = ? and tweet_date= ?`;
-const values = ['eric', '2020-07-11'];
+// const query = `SELECT * FROM tweets_by_user WHERE handle = ? and tweet_date= ?`;
+// const values = ['eric', '2020-07-11' ];
+// const options = { prepare: true };
  
-client.execute(query, values)
-  .then(result => console.log('Found user', result.rows[0]))
-  .catch(e => console.error(e));
+// client.execute(query, values, options)
+//   .then(result => console.log('Found user', result.rows[0]))
+//   .catch(e => console.error(e));
 
-const getTweetsByUser = async handle => {
-  
-}
+
+module.exports = client;
