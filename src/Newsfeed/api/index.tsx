@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ITweet } from '../types/tweets'
+import { ISocialInfo } from '../types/social';
 
 const fetchTimeline = async (handle: string) : Promise<ITweet[]> => {
   const options = {
@@ -18,4 +19,11 @@ const fetchTweet = async (tweet_id: number) : Promise<ITweet> => {
   }
 }
 
-export { fetchTweet, fetchTimeline };
+const fetchTweetSocial = async (tweet_id: number, handle: string) : Promise<ISocialInfo> => {
+  const url = `/tweets/${tweet_id}/social/${handle}`;
+
+  const { data }: { data: ISocialInfo } = await axios.get(url);
+  return data;
+}
+
+export { fetchTweet, fetchTimeline, fetchTweetSocial };

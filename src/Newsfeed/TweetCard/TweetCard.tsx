@@ -16,16 +16,6 @@ const TweetCard = ({ tweet }: tweetProps) => {
   const [ updatedTweet, setTweet ] = useState(tweet)
   const [ isHovered, setHovered ] = useState(false);
 
-  const getTweet = async (tweet_id: number) => {
-    try {
-      const tweet= await fetchTweet(tweet_id);
-
-      setTweet(tweet);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   return (
     <CardContainer
       data-testid="tweet-card"
@@ -49,8 +39,8 @@ const TweetCard = ({ tweet }: tweetProps) => {
           </TweetText>
         </TweetTextContainer>
         <SocialSection 
+          handle={tweet.handle}
           tweet_id={tweet.tweet_id} 
-          social={tweet.social}
         />
       </ContentContainer>
     </CardContainer>

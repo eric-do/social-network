@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SocialButton from './SocialButton';
 import { ISocialInfo } from '../types/social';
+import { fetchTweetSocial } from '../api';
 
 interface SocialProps {
+  handle: string;
   tweet_id: number;
-  social: ISocialInfo;
 }
 
 const defaultSocial = {
@@ -34,9 +35,23 @@ const SocialContainer = styled.div`
   height: 35px;
 `;
 
-const SocialButtons = ({ tweet_id, social = defaultSocial}: SocialProps) => {
+const SocialSection = ({ tweet_id, handle }: SocialProps) => {
 
-  const { comments, retweets, favorites} = social;
+  const [social, setSocial] = useState<ISocialInfo>(defaultSocial)
+  const { comments, retweets, favorites } = social;
+
+  useEffect(() => {
+    async function fetchSocial() {
+      try {
+        const social = await fetchTweetSocial(tweet_id, handle);
+        setSocial(social);
+      } catch (e) {
+        setSocial(defaultSocial);
+      }
+    }
+
+    fetchSocial();
+  }, [tweet_id, handle]);
 
   return (
     <SocialContainer>
@@ -59,4 +74,4 @@ const SocialButtons = ({ tweet_id, social = defaultSocial}: SocialProps) => {
   );
 }
 
-export default SocialButtons;
+export default SocialSection;

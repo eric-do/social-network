@@ -12,7 +12,6 @@ const Newsfeed = ({ handle }: { handle: string }) => {
     async function fetchData() {
       try {
         const tweets = await fetchTimeline(handle);
-        console.log('getting')
         setTweets(tweets);  
       } catch (e) {
         console.log(e)  
