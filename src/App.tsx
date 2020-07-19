@@ -15,7 +15,7 @@ function App() {
       <div>Tweeter</div>
       <CenterColumn>
         <CreateTweet user={user}/>
-        <Newsfeed />
+        <Newsfeed handle={user.handle}/>
       </CenterColumn>
     </AppContainer>
   );

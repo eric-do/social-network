@@ -8,6 +8,21 @@ interface SocialProps {
   social: ISocialInfo;
 }
 
+const defaultSocial = {
+  comments: {
+    active: false,
+    count: 0
+  },
+  retweets: {
+    active: false,
+    count: 0
+  },
+  favorites: {
+    active: false,
+    count: 0
+  }
+}
+
 const SocialContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -19,9 +34,9 @@ const SocialContainer = styled.div`
   height: 35px;
 `;
 
-const SocialButtons = (props: SocialProps) => {
+const SocialButtons = ({ tweet_id, social = defaultSocial}: SocialProps) => {
 
-  const { comments, retweets, favorites} = props.social;
+  const { comments, retweets, favorites} = social;
 
   return (
     <SocialContainer>

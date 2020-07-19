@@ -8,6 +8,7 @@ router.get('/user_timeline', async (req, res) => {
 
   try {
     const tweets = await getTweetsByHandle(handle);
+    console.log(tweets);
     res.send(tweets);
   } catch (e) {
     res.status(400).send()
