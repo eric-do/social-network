@@ -2,7 +2,8 @@ const { Router } = require('express');
 const router = Router();
 const { getTweetsByHandle, userHasCommentedOnTweet,
         getCommentCountForTweet, userHasFavoritedTweet,
-        getFavoritesCountForTweet } = require('../../database/tweet');
+        getFavoritesCountForTweet, userHasRetweetedTweet,
+        getRetweetCountForTweet } = require('../../database/tweet');
 
 
 router.get('/user_timeline', async (req, res) => {
@@ -38,7 +39,9 @@ router.get('/:tweet_id/social/:handle', async (req, res) => {
     social.comments.count = await getCommentCountForTweet(tweet_id);
     social.favorites.active = await userHasFavoritedTweet(tweet_id, handle);
     social.favorites.count = await getFavoritesCountForTweet(tweet_id);
-    console.log(social);
+    social.retweets.active = await userHasRetweetedTweet(tweet_id, handle);
+    social.retweets.count = await getRetweetCountForTweet(tweet_id);
+    // console.log(social);
     res.send(social);
   } catch (e) {
     res.status(400).send(e);

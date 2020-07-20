@@ -47,13 +47,25 @@ CREATE TABLE favorites_by_tweet (
 INSERT INTO favorites_by_tweet (tweet_id, handle) VALUES (1, 'tina');
 
 
+-- RETWEETS BY TWEET --
+DROP TABLE IF EXISTS retweets_by_tweet;
+
+CREATE TABLE retweets_by_tweet (
+  tweet_id int,
+  handle text,
+  PRIMARY KEY (tweet_id, handle)
+);
+
+INSERT INTO retweets_by_tweet (tweet_id, handle) VALUES (1, 'eric');
+INSERT INTO retweets_by_tweet (tweet_id, handle) VALUES (2, 'eric');
+
 -- COMMENTS BY USER--
 DROP TABLE IF EXISTS tweet_comments_by_user;
 
 CREATE TABLE tweet_comments_by_user (
   tweet_id int,
   handle text,
-  PRIMARY KEY ((tweet_id, handle))
+  PRIMARY KEY (handle, tweet_id)
 );
 
 INSERT INTO tweet_comments_by_user (tweet_id, handle) VALUES (1, 'tina');
@@ -64,21 +76,8 @@ DROP TABLE IF EXISTS favorites_by_user;
 CREATE TABLE favorites_by_user (
   tweet_id int,
   handle text,
-  PRIMARY KEY ((tweet_id, handle))
+  PRIMARY KEY (handle, tweet_id)
 );
 
 INSERT INTO favorites_by_user (tweet_id, handle) VALUES (1, 'eric');
 INSERT INTO favorites_by_user (tweet_id, handle) VALUES (1, 'tina');
-
-
--- RETWEETS BY USER --
-DROP TABLE IF EXISTS retweets_by_user;
-
-CREATE TABLE retweets_by_user (
-  tweet_id int,
-  handle text,
-  PRIMARY KEY (handle, tweet_id)
-);
-
-INSERT INTO retweets_by_user (tweet_id, handle) VALUES (1, 'eric');
-INSERT INTO retweets_by_user (tweet_id, handle) VALUES (2, 'eric');

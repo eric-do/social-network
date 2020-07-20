@@ -53,6 +53,24 @@ module.exports.getFavoritesCountForTweet = async tweet_id => {
   return parseInt(rows[0].count);
 }
 
+module.exports.userHasRetweetedTweet = async (tweet_id, handle) => {
+  const query = `SELECT count(*) FROM retweets_by_tweet WHERE handle= ? AND tweet_id= ?`;
+  const values = [handle, tweet_id];
+  const options = { prepare: true };
+
+  const { rows } = await db.execute(query, values, options);
+  return rows[0].count > 0; 
+}
+
+module.exports.getRetweetCountForTweet = async tweet_id => {
+  const query = `SELECT count(*) FROM retweets_by_tweet WHERE tweet_id = ?`;
+  const values = [ tweet_id ];
+  const options = { prepare: true };
+
+  const { rows } = await db.execute(query, values, options);
+  return parseInt(rows[0].count);
+}
+
 
 const addTweetByHandle = async tweet => {
   const {  handle, alias, tweet_id, 
