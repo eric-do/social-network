@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const { getTweetsByHandle } = require('../../database/tweet');
+const { getTweetsByHandle, userHasCommentedOnTweet,
+        getCommentCountForTweet, userHasFavoritedTweet,
+        getFavoritesCountForTweet } = require('../../database/tweet');
 
 
 router.get('/user_timeline', async (req, res) => {
@@ -26,23 +28,22 @@ router.get('/:tweet_id/social/:handle', async (req, res) => {
   // Boolean for each as an object
 
   const { handle, tweet_id } = req.params;
+  const social = {};
+  social.comments = {};
+  social.favorites = {};
+  social.retweets = {};
 
-  const social = {
-    comments: {
-      active: true,
-      count: 10
-    },
-    retweets: {
-      active: false,
-      count: 15
-    },
-    favorites: {
-      active: true,
-      count: 90
-    }
+  try {
+    social.comments.active = await userHasCommentedOnTweet(tweet_id, handle);
+    social.comments.count = await getCommentCountForTweet(tweet_id);
+    social.favorites.active = await userHasFavoritedTweet(tweet_id, handle);
+    social.favorites.count = await getFavoritesCountForTweet(tweet_id);
+    console.log(social);
+    res.send(social);
+  } catch (e) {
+    res.status(400).send(e);
   }
-
-  res.send(social);
+  
 });
 
 router.get('/:tweet_id/comments', async (req, res) => {
