@@ -65,7 +65,7 @@ DROP TABLE IF EXISTS tweet_comments_by_user;
 CREATE TABLE tweet_comments_by_user (
   tweet_id int,
   handle text,
-  PRIMARY KEY (handle, tweet_id)
+  PRIMARY KEY ((handle, tweet_id))
 );
 
 INSERT INTO tweet_comments_by_user (tweet_id, handle) VALUES (1, 'tina');
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS favorites_by_user;
 CREATE TABLE favorites_by_user (
   tweet_id int,
   handle text,
-  PRIMARY KEY (handle, tweet_id)
+  PRIMARY KEY ((handle, tweet_id))
 );
 
 INSERT INTO favorites_by_user (tweet_id, handle) VALUES (1, 'eric');
