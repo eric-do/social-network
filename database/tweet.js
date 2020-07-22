@@ -72,26 +72,22 @@ module.exports.getRetweetCountForTweet = async tweet_id => {
 }
 
 
-const addTweetByHandle = async tweet => {
+module.exports.addTweetByHandle = async tweet => {
   const {  handle, alias, tweet_id, 
            tweet_date, created_at, 
-           avatar, full_text, has_commented, 
-           has_favorited } = tweet;
+           avatar, full_text } = tweet;
   
   const query = `INSERT INTO tweets_by_user (
                    handle, alias, tweet_id, 
                    tweet_date, created_at, 
-                   avatar, full_text, has_commented, 
-                   has_favorited 
-                 ) 
-                 VALUES ( 
-                   '${ handle }', '${ alias }'
-                   'test user', 1, 
-                   '2020-07-11', 
-                   toTimestamp(now()), 
-                   'https://i.imgur.com/QHXuy5L.gif', 
-                   'I am a test user', 
-                   false,  
-                   true
-                 )`;
+                   avatar, full_text) 
+                 VALUES ( ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [ 
+    handle, alias, tweet_id, 
+    tweet_date, created_at, 
+    avatar, full_text
+  ];     
+  const options = { prepare: true };
+
+  await db.execute(query, values, options);
 }

@@ -8,6 +8,7 @@ const {
   getFavoritesCountForTweet,
   userHasRetweetedTweet,
   getRetweetCountForTweet,
+  addTweetByHandle
 } = require("../../database/tweet");
 
 router.get("/user_timeline", async (req, res) => {
@@ -70,5 +71,20 @@ router.get("/:tweet_id/comments", async (req, res) => {
   // Query comments for a given tweet
   // Send array of comments to client
 });
+
+router.post('/', async (req, res) => {
+  console.log(req.body);
+
+  const tweet = {...req.body};
+  tweet.created_at = new Date();
+  
+  try {
+    await addTweetByHandle(tweet);
+    res.status(201).send();
+  } catch (e) {
+    console.log(e)
+    res.status(500).send();
+  }
+})
 
 module.exports = router;
