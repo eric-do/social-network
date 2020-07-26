@@ -9,7 +9,7 @@ CREATE TABLE tweets_by_user (
   created_at timestamp,
   avatar text,
   full_text text,
-  PRIMARY KEY ((handle, tweet_date), created_at)
+  PRIMARY KEY (handle, created_at)
 ) WITH CLUSTERING ORDER BY (created_at DESC);
 
 INSERT INTO tweets_by_user (handle, alias, tweet_id, tweet_date, created_at, avatar, full_text) 

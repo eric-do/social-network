@@ -2,8 +2,8 @@ const db = require('./');
 const { count } = require('console');
 
 module.exports.getTweetsByHandle = async handle => {
-  const query = `SELECT * FROM tweets_by_user WHERE handle = ? AND tweet_date = ?`; 
-  const values = [ handle, '2020-07-11'];
+  const query = `SELECT * FROM tweets_by_user WHERE handle = ?`; 
+  const values = [ handle ];
   const options = { prepare: true };
 
   const { rows } = await db.execute(query, values, options);
