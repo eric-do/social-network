@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import './App.css';
 import Newsfeed from './Newsfeed/Newsfeed';
 import CreateTweet from './CreateTweet/CreateTweet';
+import { ITweet } from './_types';
+import { fetchTimeline } from './_api';
 import { user } from './dummy';
 
 interface AppProps {
@@ -10,12 +11,24 @@ interface AppProps {
 }
 
 function App() {
+  const [tweets, setTweets] = useState<ITweet[]>([])
+
+  const getTimeline = () => {
+    fetchTimeline('eric')
+      .then(setTweets)
+      .catch(console.log);
+  };
+
+  useEffect(() => {
+    getTimeline();
+  }, [])
+
   return (
     <AppContainer dark className="App">
       <div>Tweeter</div>
       <CenterColumn>
         <CreateTweet user={user}/>
-        <Newsfeed handle={user.handle}/>
+        <Newsfeed tweets={tweets}/>
       </CenterColumn>
     </AppContainer>
   );

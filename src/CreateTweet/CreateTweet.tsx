@@ -13,7 +13,6 @@ interface ICreateTweetProps {
 
 const CreateTweet = ({ user }: ICreateTweetProps) => {
   const [ isHovered, setHover ] = useState<boolean>(false);
-  const [ tweetText, updateTweetText ] = useState('');
 
   return (
     <CreateTweetContainer 

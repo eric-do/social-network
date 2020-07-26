@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TweetCard from './TweetCard/TweetCard';
 import styled from 'styled-components';
-// import tweets from './dummy';
-import { fetchTimeline } from './api';
 import { ITweet } from './types/tweets';
 
-const Newsfeed = ({ handle }: { handle: string }) => {
-  const [ tweets, setTweets ] = React.useState<ITweet[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const tweets = await fetchTimeline(handle);
-        setTweets(tweets);  
-      } catch (e) {
-        console.log(e)  
-      }
-    }
-    fetchData();
-  }, [handle])
-
+const Newsfeed = ({ tweets }: { tweets: ITweet[] }) => {
   return (
     <FeedContainer>
       <title>Newsfeed</title>

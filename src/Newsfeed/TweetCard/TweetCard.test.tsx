@@ -9,10 +9,8 @@ describe('Data display', () => {
   it('renders test user', () => {
     const { getByText } = render(<TweetCard key={data[0].tweet_id} tweet={data[0]}/>);
     const handle = getByText(/eric/i);
-    const favoriteCount = getByText(/564/i);
     
     expect(handle).toBeInTheDocument();
-    expect(favoriteCount).toBeInTheDocument();
   });
   
   it('displays post date in relative time when post less than or equal to 4 weeks old', () => {

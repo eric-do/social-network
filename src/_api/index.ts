@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { ITweet } from '../types/tweets'
-import { ISocialInfo } from '../types/social';
+import { ITweet, ISocialInfo } from '../_types'
 
 const fetchTimeline = async (handle: string) : Promise<ITweet[]> => {
   const options = {

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SocialButton from './SocialButton';
-import { ISocialInfo } from '../types/social';
-import { fetchTweetSocial } from '../api';
+import { ISocialInfo } from '../../_types';
+import { fetchTweetSocial } from '../../_api';
 
 interface SocialProps {
   handle: string;
   tweet_id: number;
 }
 
-const defaultSocial = {
+const defaultSocial: ISocialInfo = {
   comments: {
     active: false,
     count: 0
@@ -23,17 +23,6 @@ const defaultSocial = {
     count: 0
   }
 }
-
-const SocialContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  color: #8899A6;
-  font-size: 13px;
-  height: 35px;
-`;
 
 const SocialSection = ({ tweet_id, handle }: SocialProps) => {
 
@@ -73,5 +62,16 @@ const SocialSection = ({ tweet_id, handle }: SocialProps) => {
     </SocialContainer>
   );
 }
+
+const SocialContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  color: #8899A6;
+  font-size: 13px;
+  height: 35px;
+`;
 
 export default SocialSection;
