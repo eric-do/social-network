@@ -27,7 +27,7 @@ function App() {
     <AppContainer dark className="App">
       <div>Tweeter</div>
       <CenterColumn>
-        <CreateTweet user={user}/>
+        <CreateTweet user={user} getTimeline={getTimeline} />
         <Newsfeed tweets={tweets}/>
       </CenterColumn>
     </AppContainer>

@@ -8,10 +8,11 @@ interface ICreateTweetProps {
   user: {
     avatar: string;
     handle: string;
-  }
+  };
+  getTimeline: () => void
 }
 
-const CreateTweet = ({ user }: ICreateTweetProps) => {
+const CreateTweet = ({ user, getTimeline }: ICreateTweetProps) => {
   const [ isHovered, setHover ] = useState<boolean>(false);
 
   return (
@@ -23,7 +24,7 @@ const CreateTweet = ({ user }: ICreateTweetProps) => {
     >
       <UserAvatar user={user} />
       <ContentContainer>
-        <TweetForm />
+        <TweetForm getTimeline={getTimeline} />
       </ContentContainer>
     </CreateTweetContainer>
   )

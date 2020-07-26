@@ -13,22 +13,23 @@ const message = {
   full_text: ''
 }
 
-const TweetForm = () => {
+interface ITweetForm {
+  getTimeline: () => void
+}
+
+const TweetForm = ({ getTimeline }: ITweetForm) => {
   const [ tweetText, updateTweetText ] = useState('');
   
   const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    const config = {
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    }
 
     message.full_text =  tweetText;
-    console.log('clicked')
-
-    axios.post('/tweets', message, config)
-      .then(() => updateTweetText(''), e => (
+    
+    axios.post('/tweets', message)
+      .then(() => {
+        getTimeline();
+        updateTweetText('');
+      }, e => (
         console.log(e)
       ));
   };
