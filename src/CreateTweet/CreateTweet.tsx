@@ -8,6 +8,7 @@ interface ICreateTweetProps {
   user: {
     avatar: string;
     handle: string;
+    alias: string;
   };
   getTimeline: () => void
 }
@@ -24,7 +25,7 @@ const CreateTweet = ({ user, getTimeline }: ICreateTweetProps) => {
     >
       <UserAvatar user={user} />
       <ContentContainer>
-        <TweetForm getTimeline={getTimeline} />
+        <TweetForm user={user} getTimeline={getTimeline} />
       </ContentContainer>
     </CreateTweetContainer>
   )

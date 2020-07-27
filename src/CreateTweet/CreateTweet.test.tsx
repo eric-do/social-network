@@ -6,7 +6,7 @@ import { user } from '../dummy';
 describe('CreateTweet component successfully renders elements', () => {
   
   it('should render CreateTweet component', () => {
-    const { getByTestId } = render(<CreateTweet user={user}/>);
+    const { getByTestId } = render(<CreateTweet user={user} getTimeline={() => {}}/>);
   
     const createTweetComponent = getByTestId('create-tweet');
    
@@ -14,7 +14,7 @@ describe('CreateTweet component successfully renders elements', () => {
   })
 
   it('should render avatar elements', () => {
-    const { getByTestId, getByAltText } = render(<CreateTweet user={user}/>);
+    const { getByTestId, getByAltText } = render(<CreateTweet user={user} getTimeline={() => {}} />);
 
     const userAvatar = getByTestId('user-avatar');
     const altText = getByAltText(`${user.handle}'s profile picture`);
@@ -24,7 +24,7 @@ describe('CreateTweet component successfully renders elements', () => {
   })
 
   it('should render tweet input', () => {
-    const { getByPlaceholderText } = render(<CreateTweet user={user}/>);
+    const { getByPlaceholderText } = render(<CreateTweet user={user} getTimeline={() => {}} />);
   
     const inputField = getByPlaceholderText(`What's happening?`);
 
@@ -32,7 +32,7 @@ describe('CreateTweet component successfully renders elements', () => {
   })
   
   it('should render tweet interactions', () => {
-    const { getByTestId } = render(<CreateTweet user={user}/>);
+    const { getByTestId } = render(<CreateTweet user={user} getTimeline={() => {}} />);
   
     const tweetInteractions = getByTestId(`tweet-interactions`);
 
@@ -40,7 +40,7 @@ describe('CreateTweet component successfully renders elements', () => {
   })
 
   it('should render Tweet button', () => {
-    const { getByText } = render(<CreateTweet user={user}/>);
+    const { getByText } = render(<CreateTweet user={user} getTimeline={() => {}} />);
   
     const tweetButton = getByText(`Tweet`);
 
@@ -51,7 +51,7 @@ describe('CreateTweet component successfully renders elements', () => {
 
 describe('CreateTweet component interactions', () => {
   it('should activate Tweet button if text is inputted', () => {
-    const { getByText, getByPlaceholderText } = render(<CreateTweet user={user}/>);
+    const { getByText, getByPlaceholderText } = render(<CreateTweet user={user} getTimeline={() => {}} />);
 
     const tweetButton = getByText(`Tweet`);
     const inputField = getByPlaceholderText(`What's happening?`);

@@ -5,26 +5,25 @@ import axios from 'axios';
 import TweetInput from './TweetInput';
 import TweetInteractions from './TweetInteractions';
 
-const message = {
-  handle: 'eric',
-  alias: 'cool guy',
-  tweet_date: moment().format('YYYY-DD-MM'),
-  avatar: 'https://i.imgur.com/QHXuy5L.gif',
-  full_text: ''
-}
-
 interface ITweetForm {
+  user: {
+    handle: string;
+    alias: string;
+    avatar: string,
+  };
   getTimeline: () => void
 }
 
-const TweetForm = ({ getTimeline }: ITweetForm) => {
+const TweetForm = ({ user, getTimeline }: ITweetForm) => {
   const [ tweetText, updateTweetText ] = useState('');
   
   const handleSubmit = async (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
+    const full_text = tweetText;
+    const tweet_date = moment().format('YYYY-MM-DD');
 
-    message.full_text =  tweetText;
-    
+    const message = {...user, full_text, tweet_date};
+
     axios.post('/tweets', message)
       .then(() => {
         getTimeline();
