@@ -13,42 +13,42 @@ module.exports = {
         type: "text",
         rule: {
           required: true,
-          validator: handleValidator,
+          validators: [handleValidator],
         }
       },
       alias: {
         type: "text",
         rule: {
           required: true,
-          validator: aliasValidator,
+          validators: [aliasValidator],
         }
       },
       email: {
         type: "text",
         rule: {
           required: true,
-          validator: emailValidator,
+          validators: [emailValidator],
         }
       },
       avatar: {
         type: "text",
         rule: {
           required: true,
-          validator: avatarValidator,
+          validators: [avatarValidator],
         }
       },
       registration: {
         type: "timestamp",
         rule: {
           required: true,
-          validator: registrationValidator,
+          validators: [registrationValidator],
         }
       },
       password: {
         type: "text",
         rule: {
           required: true,
-          validator: passwordValidator,
+          validators: [passwordValidator],
         }
       },
   },

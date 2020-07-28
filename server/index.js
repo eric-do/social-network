@@ -5,6 +5,7 @@ const models = require('./database');
 const bodyParser = require('body-parser');
 const port = 3000
 const tweetRoutes = require('./routes/tweets');
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
