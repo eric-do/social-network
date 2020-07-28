@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const bodyParser = require('body-parser')
+const models = require('./database');
+const bodyParser = require('body-parser');
 const port = 3000
 const tweetRoutes = require('./routes/tweets');
 
