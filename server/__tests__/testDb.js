@@ -18,13 +18,8 @@ const dbOptions = {
   }
 }
 
-const connect = () => {
-  return new Promise((resolve, reject) => {
-    models.setDirectory(__dirname).bind(dbOptions, (err, data) => {
-      if (err) reject(err);
-      else resolve('success');
-    })
-  })
+const connect = callback => {
+  models.setDirectory(__dirname + '/../models').bind(dbOptions, callback)
 }
 
 module.exports = { connect, models };

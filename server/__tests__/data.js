@@ -1,4 +1,5 @@
 const db = require('./testDb');
+
 const getUser = id => {
   const users = [
     {
@@ -13,30 +14,34 @@ const getUser = id => {
       handle: 'tina',
       alias: 'cool girl',
       email: 'tina@email.com',
-      avatar: 'cat.png',
+      avatar: 'https://i.imgur.com/QHXuy5L.gif',
       registration: new Date(),
       password: '456',
     }
   ];
-
+  console.log(users)
   return users[id];
 }
 
-const populate = () => {
-  console.log(db.connect)
-  db.connect()
-    .then(() => {
-      console.log(db.models)
-      const user = new db.models.instance.User({...getUser(1)});
-      return user.save();
-    })
-    .then(() => console.log('success'))
-    .catch(e => console.error(e));
+const populate = async () => {
+  // console.log(db.connect)
+  try {
+    await db.connect()
+  } catch (e) { 
+    console.log('hit error')
+    console.log(e);
+  }
+  setTimeout(() => {
+    console.log(db);
+    const user = new db.models.instance.User({...getUser(1)});
+    user.save(err => {
+      if (err) console.log(err)
+      else console.log('created user');
+    });
+  }, 3000)
 }
 
 module.exports = {
   getUser,
   populate,
 }
-
-populate();

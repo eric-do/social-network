@@ -8,14 +8,14 @@ module.exports = {
       type: "text",
       rule: {
         required: true,
-        validator: handleValidator
+        validator: [handleValidator]
       }
     },
     created_at: {
       type: "date",
       rule: {
         required: true,
-        validator: dateValidator
+        validator: [dateValidator]
       }
     },
     ...TweetModel
