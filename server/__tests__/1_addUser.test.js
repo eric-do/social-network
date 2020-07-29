@@ -62,6 +62,7 @@ describe("/api/user/signup", () => {
 
     try {
       const data = await models.instance.User.findAsync({handle: user.handle});
+      
       (data[0].password).should.not.equal(user.password);
     } catch (err) {
       throw err;
