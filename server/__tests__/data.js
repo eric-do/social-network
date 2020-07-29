@@ -19,8 +19,31 @@ const getUser = id => {
       password: '456',
     }
   ];
-  console.log(users)
+
   return users[id];
+}
+
+const getInvalidUser = issue => {
+  const users = {
+    handle: {
+      handle: 'eric test',
+      alias: 'cool guy',
+      email: 'eric@email.com',
+      avatar: 'https://i.imgur.com/QHXuy5L.gif',
+      registration: new Date(),
+      password: '123',
+    },
+    email: {
+      handle: 'tina',
+      alias: 'cool girl',
+      email: 'tina',
+      avatar: 'https://i.imgur.com/QHXuy5L.gif',
+      registration: new Date(),
+      password: '456',
+    }
+  };
+  
+  return users[issue];
 }
 
 const populate = async () => {
@@ -43,5 +66,6 @@ const populate = async () => {
 
 module.exports = {
   getUser,
+  getInvalidUser,
   populate,
 }

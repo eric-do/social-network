@@ -7,7 +7,7 @@ const dbOptions = {
   clientOptions: {
       contactPoints: ['127.0.0.1'],
       protocolOptions: { port: 9042 },
-      keyspace: 'tweeter',
+      keyspace: 'tweeter_test',
       queryOptions: {consistency: models.consistencies.one}
   },
   ormOptions: {

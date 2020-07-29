@@ -7,10 +7,8 @@ router.post("/signup", async (req, res) => {
   
   try {
     await UserController.add(user);
-    console.log('added user');
     res.status(201).send({message: "test"});
   } catch (e) {
-    console.log('failed to add user', e);
     res.status(400).send({message: "Invalid user data"});
   }
 });

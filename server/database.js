@@ -20,21 +20,6 @@ models.setDirectory(__dirname).bind(
   },
   function (err) {
     if (err) throw err;
-
-    const attributes = {
-      handle: "eric",
-      alias: "cool guy",
-      email: "eric@email.com",
-      avatar: "https://i.imgur.com/QHXuy5L.gif",
-      registration: new Date(),
-      password: "123",
-    };
-    const user = new models.instance.User(attributes);
-
-    user.save((err) => {
-      if (err) console.log(err);
-      else console.log("inserted user!");
-    });
     // You'll now have a `person` table in cassandra created against the model
     // schema you've defined earlier and you can now access the model instance
     // in `models.instance.Person` object containing supported orm operations.
