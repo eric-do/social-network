@@ -1,4 +1,5 @@
 const models = require('express-cassandra');
+const util = require('util');
 
 //Tell express-cassandra to use the models-directory, and
 //use bind() to load the models using cassandra configurations.
@@ -18,8 +19,9 @@ const dbOptions = {
   }
 }
 
-const connect = callback => {
-  models.setDirectory(__dirname + '/../models').bind(dbOptions, callback)
+const connect = () => {
+  const asyncConnect = util.promisify(models.setDirectory(__dirname + '/../models').bind)
+  return asyncConnect(dbOptions);
 }
 
 module.exports = { connect, models };
