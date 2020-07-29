@@ -16,6 +16,14 @@ before(async () => {
   }
 });
 
+after(async () => {
+  try {
+    await models.instance.User.truncateAsync();
+  } catch (e) {
+    console.log('Error cleaning up user table', e);
+  }
+});
+
 describe("/api/user/signup", () => {
   it("should create valid user", done => {
     const user = { ...getUser(0) };
@@ -49,7 +57,7 @@ describe("/api/user/signup", () => {
     }
   });
 
-  it("should store the user's password as encrypted value", async () => {
+  it("should store an encrypted password instead of the user's password", async () => {
     const user = { ...getUser(0)};
 
     try {
@@ -60,8 +68,8 @@ describe("/api/user/signup", () => {
     }
   })
 
-  it("should respond with an error for invalid handle", done => {
-    const user = { ...getInvalidUser('handle') };
+  it("should not create user if handle contains special characters", done => {
+    const user = { ...getInvalidUser('handleCharacter') };
     chai
       .request(app)
       .post("/api/user/signup")
@@ -77,8 +85,85 @@ describe("/api/user/signup", () => {
       })
   });
 
-  it("should respond with an error for invalid email", done => {
+  it("should not create user if handle is too long", done => {
+    const user = { ...getInvalidUser('handleLength') };
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        throw err;
+      })
+  });
+
+  it("should not create user if email does not have @ character", done => {
     const user = { ...getInvalidUser('email') };
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        throw err;
+      })
+  });
+
+  it("should not create user if handle is missing", done => {
+    const user = { ...getUser(0) };
+
+    delete user.handle;
+
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        throw err;
+      })
+  });
+
+  it("should not create user if email is missing", done => {
+    const user = { ...getUser(0) };
+
+    delete user.email;
+    
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        throw err;
+      })
+  });
+
+  it("should not create user if password is missing", done => {
+    const user = { ...getUser(0) };
+
+    delete user.password;
+    
     chai
       .request(app)
       .post("/api/user/signup")

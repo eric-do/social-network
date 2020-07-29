@@ -1,10 +1,17 @@
 const models = require('../database');
 
-const add = async attributes => {
-  const user = new models.instance.User(attributes)
-  await user.saveAsync();
+const addUser = async (req, res) => {
+  const user = new models.instance.User(req.body)
+
+  try {
+    await user.saveAsync();
+    res.status(201).send({message: "User successfully created"});
+  } catch (e) {
+    const { message } = e;
+    res.status(400).send({ message });
+  }
 }
 
 module.exports = {
-  add
+  addUser
 }

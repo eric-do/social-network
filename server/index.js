@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const port = 3000
 require('dotenv').config();
 
-const tweetRoutes = require('./routes/tweets');
+const tweetRoutes = require('./routes/tweet');
 const userRoutes = require('./routes/user');
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 // });
 
-app.use('/api/tweets', tweetRoutes);
+app.use('/api/tweet', tweetRoutes);
 app.use('/api/user', userRoutes);
 
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
