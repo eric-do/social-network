@@ -25,23 +25,23 @@ const getUser = id => {
 
 const getInvalidUser = issue => {
   const users = {
-    handleCharacter: {
+    invalidHandleCharacter: {
       handle: 'eric test',
       alias: 'cool guy',
-      email: 'eric@email.com',
+      email: 'invalid@user.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
       registration: new Date(),
       password: '123',
     },
-    handleLength: {
+    invalidHandleLength: {
       handle: 'ericericericeric',
       alias: 'cool guy',
-      email: 'eric@email.com',
+      email: 'invalid@user.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
       registration: new Date(),
       password: '123',
     },
-    emailCharacter: {
+    invalidEmailCharacter: {
       handle: 'tina',
       alias: 'cool girl',
       email: 'tina',

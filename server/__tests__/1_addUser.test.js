@@ -10,7 +10,7 @@ chai.should();
 before(async () => {
   try {
     await connect();
-    await models.instance.User.truncateAsync();
+    await models.instance.UsersByHandle.truncateAsync();
   } catch (e) {
     console.log('Error initializing user table', e);
   }
@@ -18,7 +18,7 @@ before(async () => {
 
 after(async () => {
   try {
-    await models.instance.User.truncateAsync();
+    await models.instance.UsersByHandle.truncateAsync();
   } catch (e) {
     console.log('Error cleaning up user table', e);
   }
@@ -46,7 +46,7 @@ describe("/api/user/signup", () => {
     const user = { ...getUser(0)};
 
     try {
-      const data = await models.instance.User.findAsync({handle: user.handle});
+      const data = await models.instance.UsersByHandle.findAsync({handle: user.handle});
       data.should.have.lengthOf(1);
       data[0].should.have.property('handle', user.handle);
       data[0].should.have.property('email', user.email);
@@ -61,8 +61,8 @@ describe("/api/user/signup", () => {
     const user = { ...getUser(0)};
 
     try {
-      const data = await models.instance.User.findAsync({handle: user.handle});
-      
+      const data = await models.instance.UsersByHandle.findAsync({handle: user.handle});
+
       (data[0].password).should.not.equal(user.password);
     } catch (err) {
       throw err;
@@ -70,7 +70,7 @@ describe("/api/user/signup", () => {
   })
 
   it("should not create user if handle contains special characters", done => {
-    const user = { ...getInvalidUser('handleCharacter') };
+    const user = { ...getInvalidUser('invalidHandleCharacter') };
     chai
       .request(app)
       .post("/api/user/signup")
@@ -87,7 +87,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if handle is too long", done => {
-    const user = { ...getInvalidUser('handleLength') };
+    const user = { ...getInvalidUser('invalidHandleLength') };
     chai
       .request(app)
       .post("/api/user/signup")
@@ -104,7 +104,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if email does not have @ character", done => {
-    const user = { ...getInvalidUser('email') };
+    const user = { ...getInvalidUser('invalidEmailCharacter') };
     chai
       .request(app)
       .post("/api/user/signup")
@@ -121,7 +121,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if handle is missing", done => {
-    const user = { ...getUser(0) };
+    const user = { ...getUser(1) };
 
     delete user.handle;
 
@@ -141,9 +141,30 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if email is missing", done => {
-    const user = { ...getUser(0) };
+    const user = { ...getUser(1) };
 
     delete user.email;
+    
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        console.log(err)
+        throw err;
+      })
+  });
+
+  it("should not create user if password is missing", done => {
+    const user = { ...getUser(1) };
+
+    delete user.password;
     
     chai
       .request(app)
@@ -160,10 +181,9 @@ describe("/api/user/signup", () => {
       })
   });
 
-  it("should not create user if password is missing", done => {
+  it("should not create user with existing handle", done => {
     const user = { ...getUser(0) };
-
-    delete user.password;
+    user.email = "non-duplicate@mail.com"
     
     chai
       .request(app)
@@ -171,7 +191,7 @@ describe("/api/user/signup", () => {
       .set("content-type", "application/json")
       .send(user)
       .then(res => {
-        res.should.have.status(400);
+        res.should.have.status(409);
         res.body.should.have.property("message");
         done();
       })

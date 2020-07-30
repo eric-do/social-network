@@ -52,5 +52,6 @@ module.exports = {
         }
       },
   },
-  key:[["handle"]]
+  key:["handle"],
+  table_name: "users_by_handle"
 };
