@@ -8,7 +8,7 @@ const getUser = id => {
       email: 'eric@email.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
       registration: new Date(),
-      password: '123',
+      password: 'abcd1234',
     },
     {
       handle: 'tina',
@@ -16,7 +16,7 @@ const getUser = id => {
       email: 'tina@email.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
       registration: new Date(),
-      password: '456',
+      password: 'abcd1234',
     }
   ];
 
