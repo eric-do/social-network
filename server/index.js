@@ -20,6 +20,6 @@ app.use(bodyParser.json());
 app.use('/api/tweet', tweetRoutes);
 app.use('/api/user', userRoutes);
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+const server = app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
-module.exports = app;
+module.exports = server;

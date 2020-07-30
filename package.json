@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server/index.js",
-    "test:server": "npx mocha server/__tests__/ --exit"
+    "test:server": "npx mocha server/__tests__/"
   },
   "eslintConfig": {
     "extends": "react-app"

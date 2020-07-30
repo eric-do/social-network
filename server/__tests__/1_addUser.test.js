@@ -16,9 +16,12 @@ before(async () => {
   }
 });
 
+
 after(async () => {
   try {
     await models.instance.UsersByHandle.truncateAsync();
+    await models.closeAsync()
+    app.close();
   } catch (e) {
     console.log('Error cleaning up user table', e);
   }
