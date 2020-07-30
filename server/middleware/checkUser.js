@@ -51,9 +51,7 @@ const rejectExistingUser = async (req, res, next) => {
 }
 
 const validateAtrributes = async (req, res, next) => {
-  const { handle, email } = req.body;
-
-  const { value, error } = schema.validate(req.body);
+  const { error } = schema.validate(req.body);
 
   if (error) {
     res.status(400).send({ message: error })
