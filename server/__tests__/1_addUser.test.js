@@ -11,6 +11,7 @@ before(async () => {
   try {
     await connect();
     await models.instance.UsersByHandle.truncateAsync();
+    await models.instance.UsersByEmail.truncateAsync();
   } catch (e) {
     console.log('Error initializing user table', e);
   }
@@ -20,6 +21,7 @@ before(async () => {
 after(async () => {
   try {
     await models.instance.UsersByHandle.truncateAsync();
+    await models.instance.UsersByEmail.truncateAsync();
     await models.closeAsync()
     app.close();
   } catch (e) {
@@ -45,7 +47,7 @@ describe("/api/user/signup", () => {
       })
   });
 
-  it("should find inserted user in database", async () => {
+  it("should find inserted user in users_by_handle", async () => {
     const user = { ...getUser(0)};
 
     try {
@@ -60,11 +62,38 @@ describe("/api/user/signup", () => {
     }
   });
 
-  it("should store an encrypted password instead of the user's password", async () => {
+  it("should find inserted user in users_by_email", async () => {
+    const user = { ...getUser(0)};
+
+    try {
+      const data = await models.instance.UsersByEmail.findAsync({email: user.email});
+      data.should.have.lengthOf(1);
+      data[0].should.have.property('handle', user.handle);
+      data[0].should.have.property('email', user.email);
+      data[0].should.have.property('alias', user.alias);
+      data[0].should.have.property('avatar', user.avatar);
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  it("should store an encrypted password in users_by_handle instead of the user's password", async () => {
     const user = { ...getUser(0)};
 
     try {
       const data = await models.instance.UsersByHandle.findAsync({handle: user.handle});
+
+      (data[0].password).should.not.equal(user.password);
+    } catch (err) {
+      throw err;
+    }
+  })
+
+  it("should store an encrypted password in users_by_email instead of the user's password", async () => {
+    const user = { ...getUser(0)};
+
+    try {
+      const data = await models.instance.UsersByEmail.findAsync({email: user.email});
 
       (data[0].password).should.not.equal(user.password);
     } catch (err) {
@@ -187,6 +216,25 @@ describe("/api/user/signup", () => {
   it("should not create user with existing handle", done => {
     const user = { ...getUser(0) };
     user.email = "non-duplicate@mail.com"
+    
+    chai
+      .request(app)
+      .post("/api/user/signup")
+      .set("content-type", "application/json")
+      .send(user)
+      .then(res => {
+        res.should.have.status(409);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        throw err;
+      })
+  });
+
+  it("should not create user with existing email", done => {
+    const user = { ...getUser(0) };
+    user.handle = "notduplicate"
     
     chai
       .request(app)

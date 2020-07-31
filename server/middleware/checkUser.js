@@ -34,12 +34,16 @@ const schema = Joi.object({
 })
 
 const rejectExistingUser = async (req, res, next) => {
-  const { handle } = req.body;
+  const { handle, email } = req.body;
 
   try {
-    const data = await models.instance.UsersByHandle.findAsync({ handle });
-    if (data.length > 0) {
+    const handleData = await models.instance.UsersByHandle.findAsync({ handle });
+    const emailData = await models.instance.UsersByEmail.findAsync({ email });
+
+    if (handleData.length > 0) {
       res.status(409).send({ message: "Handle is unavailable" });
+    } else if (emailData.length > 0) {
+      res.status(409).send({ message: "Email is unavailable" });
     } else {
       next();
     }
