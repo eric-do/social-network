@@ -33,6 +33,16 @@ const schema = Joi.object({
   avatar: Joi.string(),
 })
 
+const validateAtrributes = async (req, res, next) => {
+  const { error: message } = schema.validate(req.body);
+
+  if (message) {
+    res.status(400).send({ message })
+  } else {
+    next();
+  }
+}
+
 const rejectExistingUser = async (req, res, next) => {
   const { handle, email } = req.body;
 
@@ -49,16 +59,6 @@ const rejectExistingUser = async (req, res, next) => {
     }
   } catch (e) {
     res.status(400).send({ message: "Something went wrong" });
-  }
-}
-
-const validateAtrributes = async (req, res, next) => {
-  const { error } = schema.validate(req.body);
-
-  if (error) {
-    res.status(400).send({ message: error })
-  } else {
-    next();
   }
 }
 
