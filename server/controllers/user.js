@@ -1,7 +1,12 @@
 const models = require('../database');
 
 const addUser = async (req, res) => {
-  const user = new models.instance.UsersByHandle(req.body)
+  const user = new models.instance.UsersByHandle({
+    ...req.body, 
+    registration: { 
+      $db_function: 'toTimestamp(now())' 
+    }
+  });
 
   try {
       await user.saveAsync();

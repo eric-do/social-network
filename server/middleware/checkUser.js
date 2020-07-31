@@ -31,8 +31,6 @@ const schema = Joi.object({
     }),
   
   avatar: Joi.string(),
-
-  registration: Joi.string()
 })
 
 const rejectExistingUser = async (req, res, next) => {

@@ -7,7 +7,6 @@ const getUser = id => {
       alias: 'cool guy',
       email: 'eric@email.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
-      registration: new Date(),
       password: 'abcd1234',
     },
     {
@@ -15,7 +14,6 @@ const getUser = id => {
       alias: 'cool girl',
       email: 'tina@email.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
-      registration: new Date(),
       password: 'abcd1234',
     }
   ];
@@ -30,7 +28,6 @@ const getInvalidUser = issue => {
       alias: 'cool guy',
       email: 'invalid@user.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
-      registration: new Date(),
       password: '123',
     },
     invalidHandleLength: {
@@ -38,7 +35,6 @@ const getInvalidUser = issue => {
       alias: 'cool guy',
       email: 'invalid@user.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
-      registration: new Date(),
       password: '123',
     },
     invalidEmailCharacter: {
@@ -46,7 +42,6 @@ const getInvalidUser = issue => {
       alias: 'cool girl',
       email: 'tina',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
-      registration: new Date(),
       password: '456',
     }
   };
