@@ -12,8 +12,7 @@ const addUser = async (req, res) => {
   const userByEmail = new models.instance.UsersByEmail(user);
 
   try {
-    await userByHandle.saveAsync();
-    await userByEmail.saveAsync();
+    await Promise.all([userByHandle.saveAsync(), userByEmail.saveAsync()]);
     res.status(201).send({ message: "User successfully created" });
   } catch (e) {
     const { message } = e;
