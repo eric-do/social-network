@@ -6,7 +6,7 @@ const router = Router();
 
 router.post(
   "/signup", 
-  checkUser.validateAtrributes,
+  checkUser.validateUserProperties,
   checkUser.rejectExistingUser,
   encryption.encryptPassword, 
   UserController.addUser

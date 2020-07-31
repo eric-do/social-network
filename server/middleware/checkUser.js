@@ -33,7 +33,7 @@ const schema = Joi.object({
   avatar: Joi.string(),
 })
 
-const validateAtrributes = async (req, res, next) => {
+const validateUserProperties = async (req, res, next) => {
   const { error: message } = schema.validate(req.body);
 
   if (message) {
@@ -64,5 +64,5 @@ const rejectExistingUser = async (req, res, next) => {
 
 module.exports = {
   rejectExistingUser,
-  validateAtrributes
+  validateUserProperties
 }
