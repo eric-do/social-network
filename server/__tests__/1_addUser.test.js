@@ -2,32 +2,10 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../");
-const { connect, models } = require("./testDb");
+const { models } = require("./testDb");
 const { getUser, getInvalidUser } = require("./data");
 chai.use(chaiHttp);
 chai.should();
-
-before(async () => {
-  try {
-    await connect();
-    await models.instance.UsersByHandle.truncateAsync();
-    await models.instance.UsersByEmail.truncateAsync();
-  } catch (e) {
-    console.log('Error initializing user table', e);
-  }
-});
-
-
-after(async () => {
-  try {
-    await models.instance.UsersByHandle.truncateAsync();
-    await models.instance.UsersByEmail.truncateAsync();
-    await models.closeAsync()
-    app.close();
-  } catch (e) {
-    console.log('Error cleaning up user table', e);
-  }
-});
 
 describe("/api/user/signup", () => {
   it("should create valid user", done => {

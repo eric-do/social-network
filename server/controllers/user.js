@@ -20,6 +20,11 @@ const addUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  res.status(201).send({ message: 'test' });
+}
+
 module.exports = {
   addUser,
+  loginUser
 };
