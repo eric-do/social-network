@@ -1,4 +1,5 @@
-const db = require('./testDb');
+const { models } = require('./testDb');
+const bcrypt = require('bcrypt');
 
 const getUser = id => {
   const users = [
@@ -15,7 +16,21 @@ const getUser = id => {
       email: 'tina@email.com',
       avatar: 'https://i.imgur.com/QHXuy5L.gif',
       password: 'abcd1234',
-    }
+    },
+    {
+      handle: 'mom',
+      alias: 'cool mom',
+      email: 'mom@email.com',
+      avatar: 'https://i.imgur.com/QHXuy5L.gif',
+      password: 'abcd1234',
+    },
+    {
+      handle: 'dad',
+      alias: 'cool dad',
+      email: 'dad@email.com',
+      avatar: 'https://i.imgur.com/QHXuy5L.gif',
+      password: 'abcd1234',
+    },
   ];
 
   return users[id];
@@ -50,21 +65,22 @@ const getInvalidUser = issue => {
 }
 
 const populate = async () => {
-  // console.log(db.connect)
+  const user = { 
+    ...getUser(0),
+    registration: {
+      $db_function: 'toTimestamp(now())'
+    },
+  };
+
   try {
-    await db.connect()
-  } catch (e) { 
-    console.log('hit error')
+    user.password = await bcrypt.hash(user.password, 7);
+    const userByHandle = new models.instance.UsersByHandle(user);
+    const userByEmail = new models.instance.UsersByEmail(user);
+
+    await Promise.all([userByHandle.saveAsync(), userByEmail.saveAsync()]);
+  } catch (e) {
     console.log(e);
   }
-  setTimeout(() => {
-    console.log(db);
-    const user = new db.models.instance.User({...getUser(1)});
-    user.save(err => {
-      if (err) console.log(err)
-      else console.log('created user');
-    });
-  }, 3000)
 }
 
 module.exports = {

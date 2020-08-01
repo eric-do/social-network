@@ -14,6 +14,7 @@ router.post(
 
 router.post(
   "/login", 
+  checkUser.checkExistingUser,
   UserController.loginUser
 );
 

@@ -26,4 +26,21 @@ describe("/api/user/login", () => {
         throw err;
       })
   });
+
+  it("should return an error if login handle does not exist", done => {
+    const { handle, password } = getUser(2);
+    chai
+      .request(app)
+      .post("/api/user/login")
+      .set("content-type", "application/json")
+      .send({ handle, password })
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  });
 });

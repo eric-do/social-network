@@ -62,7 +62,24 @@ const rejectExistingUser = async (req, res, next) => {
   }
 }
 
+const checkExistingUser = async (req, res, next) => {
+  const { handle } = req.body;
+
+  try {
+    const handleData = await models.instance.UsersByHandle.findAsync({ handle });
+
+    if (handleData.length === 0) {
+      res.status(400).send({ message: "Invalid login" });
+    } else {
+      next();
+    }
+  } catch (e) {
+    res.status(400).send({ message: "Something went wrong" });
+  }
+}
+
 module.exports = {
   rejectExistingUser,
-  validateUserProperties
+  validateUserProperties,
+  checkExistingUser
 }

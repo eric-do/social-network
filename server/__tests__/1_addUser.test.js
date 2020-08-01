@@ -9,7 +9,7 @@ chai.should();
 
 describe("/api/user/signup", () => {
   it("should create valid user", done => {
-    const user = { ...getUser(0) };
+    const user = { ...getUser(1) };
     chai
       .request(app)
       .post("/api/user/signup")
@@ -26,7 +26,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should find inserted user in users_by_handle", async () => {
-    const user = { ...getUser(0)};
+    const user = { ...getUser(1)};
 
     try {
       const data = await models.instance.UsersByHandle.findAsync({handle: user.handle});
@@ -41,7 +41,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should find inserted user in users_by_email", async () => {
-    const user = { ...getUser(0)};
+    const user = { ...getUser(1)};
 
     try {
       const data = await models.instance.UsersByEmail.findAsync({email: user.email});
@@ -56,7 +56,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should store an encrypted password in users_by_handle instead of the user's password", async () => {
-    const user = { ...getUser(0)};
+    const user = { ...getUser(1)};
 
     try {
       const data = await models.instance.UsersByHandle.findAsync({handle: user.handle});
@@ -68,7 +68,7 @@ describe("/api/user/signup", () => {
   })
 
   it("should store an encrypted password in users_by_email instead of the user's password", async () => {
-    const user = { ...getUser(0)};
+    const user = { ...getUser(1)};
 
     try {
       const data = await models.instance.UsersByEmail.findAsync({email: user.email});
@@ -131,7 +131,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if handle is missing", done => {
-    const user = { ...getUser(1) };
+    const user = { ...getUser(2) };
 
     delete user.handle;
 
@@ -151,7 +151,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if email is missing", done => {
-    const user = { ...getUser(1) };
+    const user = { ...getUser(2) };
 
     delete user.email;
     
@@ -172,7 +172,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user if password is missing", done => {
-    const user = { ...getUser(1) };
+    const user = { ...getUser(2) };
 
     delete user.password;
     
@@ -192,7 +192,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user with existing handle", done => {
-    const user = { ...getUser(0) };
+    const user = { ...getUser(1) };
     user.email = "non-duplicate@mail.com"
     
     chai
@@ -211,7 +211,7 @@ describe("/api/user/signup", () => {
   });
 
   it("should not create user with existing email", done => {
-    const user = { ...getUser(0) };
+    const user = { ...getUser(1) };
     user.handle = "notduplicate"
     
     chai
