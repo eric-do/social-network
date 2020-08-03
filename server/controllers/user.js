@@ -2,7 +2,6 @@ const models = require("../database");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
-const { nextTick } = require("process");
 
 const addUser = async (req, res) => {
   const user = {
