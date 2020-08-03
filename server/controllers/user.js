@@ -1,4 +1,5 @@
 const models = require("../database");
+const bcrypt = require('bcrypt');
 
 const addUser = async (req, res) => {
   const user = {
@@ -26,7 +27,26 @@ const addUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  res.status(201).send({ message: 'test' });
+  const { handle, password } = req.body;
+
+  try {
+    const data = await models.instance.UsersByHandle.findAsync({ handle });
+    
+    if (data.length === 0) {
+      res.status(400).send({ message: "Invalid login" });
+    } else {
+      const match = await bcrypt.compare(password, data[0].password);
+
+      if (match) {
+        res.status(201).send({ message: "Success" });
+      } else {
+        res.status(400).send({ message: "Invalid login" })
+      }
+    }
+
+  } catch (e) {
+    res.status(400).send({ message: "Invalid login" })
+  }
 }
 
 module.exports = {

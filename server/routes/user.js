@@ -6,7 +6,7 @@ const router = Router();
 
 router.post(
   "/signup", 
-  checkUser.validateUserProperties,
+  checkUser.validateRegistrationFields,
   checkUser.rejectExistingUser,
   encryption.encryptPassword, 
   UserController.addUser
@@ -14,6 +14,7 @@ router.post(
 
 router.post(
   "/login", 
+  checkUser.valiateLoginFields,
   checkUser.checkExistingUser,
   UserController.loginUser
 );
