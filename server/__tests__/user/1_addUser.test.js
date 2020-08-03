@@ -1,8 +1,8 @@
 /* eslint-env mocha */
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const app = require("../");
-const { models } = require("./testDb");
+const app = require("../..");
+const { models } = require("../testDb");
 const { getUser, getInvalidUser } = require("./data");
 chai.use(chaiHttp);
 chai.should();
