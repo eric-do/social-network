@@ -1,5 +1,7 @@
 const models = require("../database");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const addUser = async (req, res) => {
   const user = {
@@ -38,7 +40,15 @@ const loginUser = async (req, res) => {
       const match = await bcrypt.compare(password, data[0].password);
 
       if (match) {
-        res.status(201).send({ message: "Success" });
+        const privateKey = fs.readFileSync(process.env.JWT_KEY);
+        const token = await jwt.sign(handle, privateKey, { algorithm: 'RS256' });
+
+        res.status(201).send({ 
+          message: "Success", 
+          user: {
+           token 
+          }
+        });
       } else {
         res.status(400).send({ message: "Invalid login" })
       }

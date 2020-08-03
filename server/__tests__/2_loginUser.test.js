@@ -89,8 +89,12 @@ describe("/api/user/login", () => {
       .set("content-type", "application/json")
       .send({ handle, password })
       .then(res => {
-        (res.body.user).should.have.all.keys("token")
+        (res.body.user).should.have.all.keys("token");
+        done();
       })
+      .catch(err => {
+        console.log(err);
+      });
   })
 
 });
