@@ -9,8 +9,9 @@ chai.should();
 // console.log(models);
 
 describe("/api/user/login", () => {
-  it("should login a valid user", done => {
+  it("should return a JSON web token when passed valid login", done => {
     const { handle, password } = getUser(0);
+
     chai
       .request(app)
       .post("/api/user/login")
@@ -18,13 +19,13 @@ describe("/api/user/login", () => {
       .send({ handle, password })
       .then(res => {
         res.should.have.status(200);
-        res.body.should.have.property("message");
+        (res.body.user).should.have.all.keys("token");
         done();
       })
       .catch(err => {
-        throw err;
-      })
-  });
+        console.log(err);
+      });
+  })
 
   it("should return an error if login handle does not exist", done => {
     const { handle, password } = getUser(2);
@@ -77,23 +78,5 @@ describe("/api/user/login", () => {
       .catch(err => {
         console.log(err);
       })
-  })
-
-  it("should return a JSON web token when passed valid login", done => {
-    const { handle, password } = getUser(0);
-
-    chai
-      .request(app)
-      .post("/api/user/login")
-      .set("content-type", "application/json")
-      .send({ handle, password })
-      .then(res => {
-        (res.body.user).should.have.all.keys("token");
-        done();
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  })
-
+  });
 });
