@@ -16,7 +16,8 @@ router.post(
   "/login", 
   checkUser.valiateLoginFields,
   checkUser.checkExistingUser,
-  UserController.loginUser
+  UserController.loginUser,
+  UserController.sendUserData
 );
 
 module.exports = router;

@@ -17,7 +17,7 @@ describe("/api/user/login", () => {
       .set("content-type", "application/json")
       .send({ handle, password })
       .then(res => {
-        res.should.have.status(201);
+        res.should.have.status(200);
         res.body.should.have.property("message");
         done();
       })

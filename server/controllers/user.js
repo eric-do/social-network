@@ -2,6 +2,7 @@ const models = require("../database");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const { nextTick } = require("process");
 
 const addUser = async (req, res) => {
   const user = {
@@ -28,29 +29,40 @@ const addUser = async (req, res) => {
   }
 };
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { handle, password } = req.body;
+
+  const throwLoginError = () => {
+    throw new Error("Invalid login");
+  }
 
   try {
     const data = await models.instance.UsersByHandle.findAsync({ handle });
     
     if (data.length === 0) {
-      res.status(400).send({ message: "Invalid login" });
+      throwLoginError()
     } else {
       const match = await bcrypt.compare(password, data[0].password);
 
       if (match) {
         const privateKey = fs.readFileSync(process.env.JWT_KEY);
-        const token = await jwt.sign(handle, privateKey, { algorithm: 'RS256' });
+        const { email, handle } = data[0];
+        const token = await jwt.sign(
+          { 
+            email, 
+            handle 
+          }, 
+          privateKey, 
+          { 
+            algorithm: 'RS256',
+            expiresIn: "30m"
+          });
 
-        res.status(201).send({ 
-          message: "Success", 
-          user: {
-           token 
-          }
-        });
+        req.body.user = { token }
+
+        next();
       } else {
-        res.status(400).send({ message: "Invalid login" })
+        throwLoginError()
       }
     }
 
@@ -59,7 +71,14 @@ const loginUser = async (req, res) => {
   }
 }
 
+const sendUserData = (req, res) => {
+  const { user } = req.body;
+  const message = "Login successful"
+  res.status(200).send({ message, user });
+}
+
 module.exports = {
   addUser,
-  loginUser
+  loginUser,
+  sendUserData
 };
