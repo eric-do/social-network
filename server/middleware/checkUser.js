@@ -67,7 +67,7 @@ const checkExistingUser = async (req, res, next) => {
 
   try {
     const handleData = await models.instance.UsersByHandle.findAsync({ handle });
-
+    
     if (handleData.length === 0) {
       res.status(400).send({ message: "Invalid login" });
     } else {

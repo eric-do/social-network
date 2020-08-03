@@ -8,11 +8,16 @@ const addUser = async (req, res) => {
     },
   };
 
+  const queries = [];
   const userByHandle = new models.instance.UsersByHandle(user);
   const userByEmail = new models.instance.UsersByEmail(user);
 
+  const handleQuery = userByHandle.save({ return_query: true })
+  const emailQuery = userByEmail.save({ return_query: true });
+  queries.push(handleQuery, emailQuery)
+  
   try {
-    await Promise.all([userByHandle.saveAsync(), userByEmail.saveAsync()]);
+    await models.doBatchAsync(queries);
     res.status(201).send({ message: "User successfully created" });
   } catch (e) {
     const { message } = e;
