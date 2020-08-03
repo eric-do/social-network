@@ -2,8 +2,7 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../");
-const { connect, models } = require("./testDb");
-const { getUser, getInvalidUser } = require("./data");
+const { getUser } = require("./data");
 chai.use(chaiHttp);
 chai.should();
 
