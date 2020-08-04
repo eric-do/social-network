@@ -1,8 +1,12 @@
 const { Router } = require("express");
+const checkTweet = require("../middleware/checkTweet");
+const TweetController = require("../controllers/tweet");
 const router = Router();
 
-router.post('/', async (req, res) => {
-  res.status(201).send({ message: "tweet added" });
-})
+router.post(
+  '/', 
+  checkTweet.validateTweetFields,
+  TweetController.addTweet
+)
 
 module.exports = router;

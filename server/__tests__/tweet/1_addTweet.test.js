@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe("/api/tweet/", () => {
-  it("should create valid tweet", done => {
+  it("should respond with a 201 status for valid tweet inputs", done => {
     const tweet = { ...getTweet(0) };
     chai
       .request(app)
@@ -22,6 +22,26 @@ describe("/api/tweet/", () => {
       })
       .catch(err => {
         throw err;
+      })
+  });
+
+  it("should respond with an error status for an empty tweet", done => {
+    const tweet = { ...getTweet(0) };
+    
+    delete tweet.full_text;
+
+    chai
+      .request(app)
+      .post(`/api/tweet`)
+      .set("content-type", "application/json")
+      .send(tweet)
+      .then(res => {
+        res.should.have.status(400);
+        res.body.should.have.property("message");
+        done();
+      })
+      .catch(err => {
+        console.log(err)
       })
   });
 });

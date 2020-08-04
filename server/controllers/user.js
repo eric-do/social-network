@@ -29,7 +29,7 @@ const addUser = async (req, res) => {
 };
 
 const loginUser = async (req, res, next) => {
-  const { handle, password } = req.body;
+  const { handle, password } = req.body;  
 
   const throwLoginError = () => {
     throw new Error("Invalid login");
