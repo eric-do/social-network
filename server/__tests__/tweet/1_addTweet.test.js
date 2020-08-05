@@ -25,6 +25,19 @@ describe("/api/tweet/", () => {
       })
   });
 
+  it("should find inserted tweet in tweets_by_user", async () => {
+    const newTweet = { ...getTweet(0) };
+
+    try {
+      const data = await models.instance.TweetsByHandle.findAsync({ handle: newTweet.handle });
+      const foundTweet = data[0];
+
+      foundTweet.should.deep.include(newTweet);
+    } catch (err) {
+      throw err;
+    }
+  });
+
   it("should respond with an error status for an empty tweet", done => {
     const tweet = { ...getTweet(0) };
     

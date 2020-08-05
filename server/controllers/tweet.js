@@ -13,6 +13,9 @@ const addTweet = async (req, res) => {
       },
     };
 
+    const tweetByHandle = new models.instance.TweetsByHandle(tweet);
+    tweetByHandle.save();
+
     res.status(201).send({ message: "Tweet successfully created" });
   } catch (e) {
     const { message } = e;
