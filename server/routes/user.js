@@ -6,10 +6,18 @@ const router = Router();
 
 router.post(
   "/signup", 
-  checkUser.validateUserProperties,
+  checkUser.validateRegistrationFields,
   checkUser.rejectExistingUser,
   encryption.encryptPassword, 
   UserController.addUser
+);
+
+router.post(
+  "/login", 
+  checkUser.valiateLoginFields,
+  checkUser.checkExistingUser,
+  UserController.loginUser,
+  UserController.sendUserData
 );
 
 module.exports = router;

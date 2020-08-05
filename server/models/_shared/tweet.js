@@ -14,14 +14,14 @@ module.exports = {
     type: "text",
     rule: {
       required: true,
-      validator: [handleValidator],
+      validators: [handleValidator],
     }
   },
   alias: {
     type: "text",
     rule: {
       required: true,
-      validator: [aliasValidator],
+      validators: [aliasValidator],
     }
   },
   tweet_id: {
@@ -31,21 +31,21 @@ module.exports = {
     type: "timestamp",
     rule: {
       required: true,
-      validator: [createdValidator],
+      validators: [createdValidator],
     }
   },
   avatar: {
     type: "text",
     rule: {
       required: true,
-      validator: [avatarValidator],
+      validators: [avatarValidator],
     }
   },
   full_text: {
     type: "text",
     rule: {
       required: true,
-      validator: [textLengthValidator]
+      validators: [textLengthValidator]
     }
   }
 }
