@@ -36,16 +36,16 @@ const loginUser = async (req, res, next) => {
   }
 
   try {
-    const data = await models.instance.UsersByHandle.findAsync({ handle });
+    const users = await models.instance.UsersByHandle.findAsync({ handle });
     
-    if (data.length === 0) {
+    if (users.length === 0) {
       throwLoginError()
     } else {
-      const match = await bcrypt.compare(password, data[0].password);
+      const match = await bcrypt.compare(password, users[0].password);
 
       if (match) {
         const privateKey = fs.readFileSync(process.env.JWT_KEY);
-        const { email, handle } = data[0];
+        const { email, handle } = users[0];
         const token = await jwt.sign(
           { 
             email, 

@@ -6,11 +6,12 @@ const addTweet = async (req, res) => {
   try {
     const user = await models.instance.UsersByHandle.findOneAsync({ handle });
     const tweet = { 
-      ...user, 
+      tweet_id: models.timeuuid(),
       full_text,
       tweet_date: {
         $db_function: "toTimestamp(now())",
       },
+      ...user, 
     };
 
     const tweetByHandle = new models.instance.TweetsByHandle(tweet);
@@ -19,6 +20,7 @@ const addTweet = async (req, res) => {
     res.status(201).send({ message: "Tweet successfully created" });
   } catch (e) {
     const { message } = e;
+    console.log(message);
     res.status(400).send({ message });
   }
 };

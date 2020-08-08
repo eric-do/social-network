@@ -21,7 +21,7 @@ describe("/api/tweet/", () => {
         done();
       })
       .catch(err => {
-        throw err;
+        console.log(err);
       })
   });
 
@@ -29,10 +29,10 @@ describe("/api/tweet/", () => {
     const newTweet = { ...getTweet(0) };
 
     try {
-      const data = await models.instance.TweetsByHandle.findAsync({ handle: newTweet.handle });
+      const data = await models.instance.TweetsByHandle.findAsync({ handle: newTweet.handle }, {raw: true});
       const foundTweet = data[0];
-
       foundTweet.should.deep.include(newTweet);
+      foundTweet.should.have.any.keys("tweet_id");
     } catch (err) {
       throw err;
     }
