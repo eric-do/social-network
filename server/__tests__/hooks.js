@@ -3,7 +3,8 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../");
 const { connect, models } = require("./testDb");
-const { populate } = require("./user/data")
+const { populateUser } = require("./user/data");
+const { populateTweet } = require("./tweet/data");
 chai.use(chaiHttp);
 chai.should();
 
@@ -13,7 +14,8 @@ exports.mochaHooks = {
       await connect();
       await models.instance.UsersByHandle.truncateAsync();
       await models.instance.UsersByEmail.truncateAsync();
-      await populate();
+      await populateUser();
+      await populateTweet();
     } catch (e) {
       console.log("Error initializing user table", e);
     }
