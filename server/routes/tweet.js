@@ -9,4 +9,9 @@ router.post(
   TweetController.addTweet
 )
 
+router.post('/favorite', (req, res) => {
+  console.log(req.body);
+  res.status(201).send({ message: "testing" })
+}
+)
 module.exports = router;

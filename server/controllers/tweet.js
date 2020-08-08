@@ -5,6 +5,7 @@ const addTweet = async (req, res) => {
   
   try {
     const user = await models.instance.UsersByHandle.findOneAsync({ handle });
+
     const tweet = { 
       tweet_id: models.timeuuid(),
       full_text,
@@ -20,7 +21,7 @@ const addTweet = async (req, res) => {
     res.status(201).send({ message: "Tweet successfully created" });
   } catch (e) {
     const { message } = e;
-    console.log(message);
+    // console.log(message);
     res.status(400).send({ message });
   }
 };
