@@ -42,7 +42,6 @@ const addTweet = async (req, res) => {
 };
 
 const getTweet = async (req, res, next) => {
-  console.log(req.params.tweet_id)
   const tweet_id = models.timeuuidFromString(req.params.tweet_id);
 
   try {
@@ -54,6 +53,34 @@ const getTweet = async (req, res, next) => {
     console.log(message);
     res.status(400).send({ message });
   }
+};
+
+const getInteractions = async (req, res, next) => {
+  const tweet_id = models.timeuuidFromString(req.params.tweet_id);
+
+  try {
+    const interactions = await models.instance.TweetCounter.findOneAsync({ tweet_id }, { raw: true });
+
+    const convertedInteractions = {
+      likes: interactions.likes.toNumber(),
+      comments: interactions.comments.toNumber(),
+      retweets: interactions.retweets.toNumber()
+    }
+
+    req.body.interactions = convertedInteractions;
+
+    next();
+  } catch (e) {
+    const { message } = e;
+    console.log(message)
+    res.status(400).send({ message });
+  }
+};
+
+const sendInteractionData = async (req, res) => {
+  const { interactions } = req.body;
+
+  res.status(200).send({ interactions });
 }
 
 const addFavorite = async (req, res) => {
@@ -64,4 +91,6 @@ module.exports = {
   addTweet,
   getTweet,
   sendTweetData,
+  getInteractions,
+  sendInteractionData,
 };

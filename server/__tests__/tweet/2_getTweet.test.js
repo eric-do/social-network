@@ -10,7 +10,7 @@ chai.use(chaiTime);
 chai.should();
 
 describe("GET /api/tweet/:tweet_id", () => {
-  it("should respond with a 200 status for a valid tweet ID", async () => {
+  it("should respond with a tweet and status 200 for a valid tweet ID", async () => {
     const handle = "eric";
 
     try { 
@@ -23,11 +23,10 @@ describe("GET /api/tweet/:tweet_id", () => {
         .get(`/api/tweet/${tweet_id.toString()}`)
         .send();
 
-      console.log(compareTweet, res.body.tweet);
       const { tweet } = res.body;
       const responseDate = new Date(tweet.tweet_date);
       const compareDate = compareTweet.tweet_date;
-      
+
       res.should.have.status(200);
       res.body.should.have.all.keys('tweet');
       tweet.tweet_id.should.equal(compareTweet.tweet_id.toString());

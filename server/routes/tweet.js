@@ -7,16 +7,22 @@ router.post(
   '/', 
   checkTweet.validateTweetFields,
   TweetController.addTweet
-)
+);
 
 router.get(
   '/:tweet_id', 
   TweetController.getTweet,
   TweetController.sendTweetData,
-)
+);
+
+router.get(
+  '/:tweet_id/interactions', 
+  TweetController.getInteractions,
+  TweetController.sendInteractionData,
+);
 
 router.post('/favorite', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   res.status(201).send({ message: "testing" })
 }
 )
