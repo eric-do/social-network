@@ -8,12 +8,17 @@ const { populateTweet } = require("./tweet/data");
 chai.use(chaiHttp);
 chai.should();
 
+const truncateTables = async () => {
+  await models.instance.UsersByHandle.truncateAsync();
+  await models.instance.UsersByEmail.truncateAsync();
+  await models.instance.TweetCounter.truncateAsync();
+};
+
 exports.mochaHooks = {
   beforeAll: async () => {
     try {
       await connect();
-      await models.instance.UsersByHandle.truncateAsync();
-      await models.instance.UsersByEmail.truncateAsync();
+      await truncateTables()
       await populateUser();
       await populateTweet();
     } catch (e) {
@@ -23,8 +28,7 @@ exports.mochaHooks = {
 
   afterAll: async () => {
     try {
-      await models.instance.UsersByHandle.truncateAsync();
-      await models.instance.UsersByEmail.truncateAsync();
+      await truncateTables()
       await models.closeAsync();
       app.close();
     } catch (e) {

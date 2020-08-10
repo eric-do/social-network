@@ -46,7 +46,7 @@ describe("POST /api/tweet/favorite", () => {
         .get(`/api/tweet/${tweet_id}/interactions`)
         .send();
       
-      const { interactions: originalInteractions } = originalResponse.body;
+      const { likes: originalLikes } = originalResponse.body.interactions;
       const favorite = { handle: "tina" }
 
       await chai
@@ -60,12 +60,11 @@ describe("POST /api/tweet/favorite", () => {
         .get(`/api/tweet/${tweet_id}/interactions`)
         .send();
 
-      const { interactions: updatedInteractions } = originalResponse.body;
+      const { likes: updatedLikes } = updatedResponse.body.interactions;
 
-      updatedInteractions.likes.should.equal(originalInteractions + 1);
-      
+      updatedLikes.should.equal(originalLikes + 1);
     } catch (err) {
-
+      throw err;
     }
   });
 });

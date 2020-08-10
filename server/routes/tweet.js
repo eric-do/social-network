@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const checkTweet = require("../middleware/checkTweet");
+const formatRequest = require("../middleware/formatRequest");
 const TweetController = require("../controllers/tweet");
 const router = Router();
 
@@ -21,9 +22,10 @@ router.get(
   TweetController.sendInteractionData,
 );
 
-router.post('/:tweet_id/favorite', (req, res) => {
-  // console.log(req.body);
-  res.status(201).send({ message: "testing" })
-}
+router.post(
+  '/:tweet_id/favorite',
+  formatRequest.stringIdToTimeUuid,
+  TweetController.addFavorite
 )
+
 module.exports = router;

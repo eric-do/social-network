@@ -84,7 +84,20 @@ const sendInteractionData = async (req, res) => {
 }
 
 const addFavorite = async (req, res) => {
-  const { handle, tweet_id } = req.body;
+  const { tweet_id } = req.params;
+  const { handle } = req.body;
+
+  try {
+    await models.instance.TweetCounter.updateAsync({ tweet_id }, {
+      likes: models.datatypes.Long.fromInt(1),
+    });
+
+    res.status(201).send({ message: 'Successfully liked tweet' })
+  } catch (err) {
+    const { message } = err;
+    console.log(message);
+    res.status(400).send({ message });
+  }
 }
 
 module.exports = {
@@ -92,5 +105,6 @@ module.exports = {
   getTweet,
   sendTweetData,
   getInteractions,
+  addFavorite,
   sendInteractionData,
 };
