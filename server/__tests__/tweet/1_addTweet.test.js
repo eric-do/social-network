@@ -25,14 +25,27 @@ describe("/api/tweet/", () => {
       })
   });
 
-  it("should find inserted tweet in tweets_by_user", async () => {
+  it("should find inserted tweet and inserted tweet should have no interactions", async () => {
     const newTweet = { ...getTweet(1) };
 
     try {
-      const data = await models.instance.TweetsByHandle.findAsync({ handle: newTweet.handle }, {raw: true});
-      const foundTweet = data[0];
+      const tweets = await models
+        .instance
+        .TweetsByHandle
+        .findAsync({ handle: newTweet.handle }, {raw: true});
+     
+      const foundTweet = tweets[0];
+
+      const favorited = await models
+        .instance
+        .TweetCounter
+        .findOneAsync({ tweet_id: foundTweet.tweet_id })
+
       foundTweet.should.deep.include(newTweet);
       foundTweet.should.have.any.keys("tweet_id");
+      favorited.likes.toNumber().should.equal(0)
+      favorited.comments.toNumber().should.equal(0)
+      favorited.retweets.toNumber().should.equal(0)
     } catch (err) {
       throw err;
     }

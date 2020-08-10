@@ -9,10 +9,6 @@ chai.should();
 
 describe("/api/tweet/favorite", () => {
   it("should return a 201 for a successful favorite", async () => {
-    // get tweets by handle 'eric'
-    // get tweet_id from first tweet in array
-    // make POST request with tweet_id and favoriting user handle
-
     try {
       const tweets = await models.instance.TweetsByHandle.findAsync({
         handle: "eric",
@@ -36,4 +32,12 @@ describe("/api/tweet/favorite", () => {
       throw err;
     }
   });
+
+  it("should increment favorite count by 1", async () => {
+    // Get favorite count for given tweet
+    // Favorite the tweet
+    // Get favorite count for given tweet
+    // Confirm count has been incremented by 1
+  });
+
 });
