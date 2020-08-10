@@ -1,8 +1,8 @@
 const models = require("../database");
 
 const sendTweetData = (req, res, next) => {
-  const { tweet } = req.body;
-  res.status(200).send({ tweet });
+  const { tweet, interactions } = req.body;
+  res.status(200).send({ tweet, interactions });
 }
 
 const addTweet = async (req, res) => {

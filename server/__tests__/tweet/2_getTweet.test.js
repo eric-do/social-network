@@ -28,7 +28,7 @@ describe("GET /api/tweet/:tweet_id", () => {
       const compareDate = compareTweet.tweet_date;
 
       res.should.have.status(200);
-      res.body.should.have.all.keys('tweet');
+      res.body.should.have.all.keys('tweet', 'interactions');
       tweet.tweet_id.should.equal(compareTweet.tweet_id.toString());
       tweet.handle.should.equal(compareTweet.handle);
       tweet.alias.should.equal(compareTweet.alias);

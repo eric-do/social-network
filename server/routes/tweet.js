@@ -14,6 +14,7 @@ router.get(
   '/:tweet_id', 
   formatRequest.stringIdToTimeUuid,
   TweetController.getTweet,
+  TweetController.getInteractions,
   TweetController.sendTweetData,
 );
 
