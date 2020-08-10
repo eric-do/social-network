@@ -7,7 +7,7 @@ const { getTweet } = require("./data");
 chai.use(chaiHttp);
 chai.should();
 
-describe("/api/tweet/favorite", () => {
+describe("POST /api/tweet/favorite", () => {
   it("should return a 201 for a successful favorite", async () => {
     try {
       const tweets = await models.instance.TweetsByHandle.findAsync({
@@ -33,11 +33,28 @@ describe("/api/tweet/favorite", () => {
     }
   });
 
-  it("should increment favorite count by 1", async () => {
-    // Get favorite count for given tweet
-    // Favorite the tweet
+  xit("should increment favorite count by 1", async () => {
+    // Get favorite count for initialized tweet
     // Get favorite count for given tweet
     // Confirm count has been incremented by 1
   });
+});
 
+describe("GET /api/tweet/:tweet_id/interactions", () => {
+  xit("should return tweet interaction count", async () => {
+    try {
+
+    } catch (e) {
+      const tweets = await models.instance.TweetsByHandle.findAsync({
+        handle: "eric",
+      });
+
+      const { tweet_id } = tweets[0]; 
+      const res = await chai
+        .request(app)
+        .get(`/api/tweet/${tweet_id}/favorite`)
+        .set("content-type", "application/json")
+        .send();
+    }
+  })
 });

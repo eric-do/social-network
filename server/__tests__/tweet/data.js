@@ -42,7 +42,9 @@ const populateTweet = async () => {
     };
 
     const tweetByHandle = await new models.instance.TweetsByHandle(insertTweet);
+    const tweetByTweetId = await new models.instance.Tweet(insertTweet);
     await tweetByHandle.saveAsync();
+    await tweetByTweetId.saveAsync();
   } catch (e) {
     console.log(e);
   }

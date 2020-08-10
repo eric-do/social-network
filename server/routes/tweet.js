@@ -9,6 +9,12 @@ router.post(
   TweetController.addTweet
 )
 
+router.get(
+  '/:tweet_id', 
+  TweetController.getTweet,
+  TweetController.sendTweetData,
+)
+
 router.post('/favorite', (req, res) => {
   console.log(req.body);
   res.status(201).send({ message: "testing" })

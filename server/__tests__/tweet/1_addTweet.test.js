@@ -7,7 +7,7 @@ const { getTweet, getInvalidTweet } = require("./data");
 chai.use(chaiHttp);
 chai.should();
 
-describe("/api/tweet/", () => {
+describe("POST /api/tweet/", () => {
   it("should respond with a 201 status for valid tweet inputs", done => {
     const tweet = { ...getTweet(1) };
     chai
