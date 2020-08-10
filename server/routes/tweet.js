@@ -12,12 +12,14 @@ router.post(
 
 router.get(
   '/:tweet_id', 
+  formatRequest.stringIdToTimeUuid,
   TweetController.getTweet,
   TweetController.sendTweetData,
 );
 
 router.get(
   '/:tweet_id/interactions', 
+  formatRequest.stringIdToTimeUuid,
   TweetController.getInteractions,
   TweetController.sendInteractionData,
 );

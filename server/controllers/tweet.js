@@ -42,7 +42,7 @@ const addTweet = async (req, res) => {
 };
 
 const getTweet = async (req, res, next) => {
-  const tweet_id = models.timeuuidFromString(req.params.tweet_id);
+  const { tweet_id } = req.params;
 
   try {
     req.body.tweet = await models.instance.Tweet.findOneAsync({ tweet_id });
@@ -56,7 +56,7 @@ const getTweet = async (req, res, next) => {
 };
 
 const getInteractions = async (req, res, next) => {
-  const tweet_id = models.timeuuidFromString(req.params.tweet_id);
+  const { tweet_id } = req.params;
 
   try {
     const interactions = await models.instance.TweetCounter.findOneAsync({ tweet_id }, { raw: true });
