@@ -21,7 +21,7 @@ router.get(
   TweetController.sendInteractionData,
 );
 
-router.post('/favorite', (req, res) => {
+router.post('/:tweet_id/favorite', (req, res) => {
   // console.log(req.body);
   res.status(201).send({ message: "testing" })
 }

@@ -13,15 +13,14 @@ describe("POST /api/tweet/favorite", () => {
       const tweets = await models.instance.TweetsByHandle.findAsync({
         handle: "eric",
       });
+
       const { tweet_id } = tweets[0];
-      const favorite = {
-        tweet_id: tweet_id.toString(),
-        handle: "tina",
-      };
+      const handle = "tina";
+      const favorite = { handle };
 
       const res = await chai
         .request(app)
-        .post(`/api/tweet/favorite`)
+        .post(`/api/tweet/${tweet_id.toString()}/favorite`)
         .set("content-type", "application/json")
         .send(favorite);
 
@@ -33,28 +32,40 @@ describe("POST /api/tweet/favorite", () => {
     }
   });
 
-  xit("should increment favorite count by 1", async () => {
+  it("should increment likes count by 1", async () => {
     // Get favorite count for initialized tweet
     // Get favorite count for given tweet
     // Confirm count has been incremented by 1
-  });
-});
-
-describe("GET /api/tweet/:tweet_id/interactions", () => {
-  xit("should return tweet interaction count", async () => {
     try {
+      const handle = "eric";
+      const tweets = await models.instance.TweetsByHandle.findAsync({ handle });
 
-    } catch (e) {
-      const tweets = await models.instance.TweetsByHandle.findAsync({
-        handle: "eric",
-      });
-
-      const { tweet_id } = tweets[0]; 
-      const res = await chai
+      const tweet_id = tweets[0].tweet_id.toString();
+      const originalResponse = await chai
         .request(app)
-        .get(`/api/tweet/${tweet_id}/favorite`)
-        .set("content-type", "application/json")
+        .get(`/api/tweet/${tweet_id}/interactions`)
         .send();
+      
+      const { interactions: originalInteractions } = originalResponse.body;
+      const favorite = { handle: "tina" }
+
+      await chai
+        .request(app)
+        .post(`/api/tweet/${tweet_id}/favorite`)
+        .set("content-type", "application/json")
+        .send(favorite);
+
+      const updatedResponse = await chai
+        .request(app)
+        .get(`/api/tweet/${tweet_id}/interactions`)
+        .send();
+
+      const { interactions: updatedInteractions } = originalResponse.body;
+
+      updatedInteractions.likes.should.equal(originalInteractions + 1);
+      
+    } catch (err) {
+
     }
-  })
+  });
 });
