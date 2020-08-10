@@ -23,7 +23,7 @@ router.get(
 );
 
 router.post(
-  '/:tweet_id/favorite',
+  '/:tweet_id/like',
   formatRequest.stringIdToTimeUuid,
   TweetController.addFavorite
 )

@@ -7,7 +7,7 @@ const { getTweet } = require("./data");
 chai.use(chaiHttp);
 chai.should();
 
-describe("POST /api/tweet/favorite", () => {
+describe("POST /api/tweet/like", () => {
   it("should return a 201 for a successful favorite", async () => {
     try {
       const tweets = await models.instance.TweetsByHandle.findAsync({
@@ -20,7 +20,7 @@ describe("POST /api/tweet/favorite", () => {
 
       const res = await chai
         .request(app)
-        .post(`/api/tweet/${tweet_id.toString()}/favorite`)
+        .post(`/api/tweet/${tweet_id.toString()}/like`)
         .set("content-type", "application/json")
         .send(favorite);
 
@@ -51,7 +51,7 @@ describe("POST /api/tweet/favorite", () => {
 
       await chai
         .request(app)
-        .post(`/api/tweet/${tweet_id}/favorite`)
+        .post(`/api/tweet/${tweet_id}/like`)
         .set("content-type", "application/json")
         .send(favorite);
 
