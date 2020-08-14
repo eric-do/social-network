@@ -18,7 +18,7 @@ const addUser = async (req, res) => {
   const handleQuery = userByHandle.save({ return_query: true })
   const emailQuery = userByEmail.save({ return_query: true });
   queries.push(handleQuery, emailQuery)
-  
+
   try {
     await models.doBatchAsync(queries);
     res.status(201).send({ message: "User successfully created" });
@@ -29,30 +29,30 @@ const addUser = async (req, res) => {
 };
 
 const loginUser = async (req, res, next) => {
-  const { handle, password } = req.body;  
+  const { handle, password } = req.body;
 
   const throwLoginError = () => {
     throw new Error("Invalid login");
   }
 
   try {
-    const users = await models.instance.UsersByHandle.findAsync({ handle });
-    
-    if (users.length === 0) {
+    const user = await models.instance.UsersByHandle.findOneAsync({ handle });
+
+    if (!user) {
       throwLoginError()
     } else {
-      const match = await bcrypt.compare(password, users[0].password);
+      const match = await bcrypt.compare(password, user.password);
 
       if (match) {
         const privateKey = fs.readFileSync(process.env.JWT_KEY);
-        const { email, handle } = users[0];
+        const { email, handle } = user;
         const token = await jwt.sign(
-          { 
-            email, 
-            handle 
-          }, 
-          privateKey, 
-          { 
+          {
+            email,
+            handle
+          },
+          privateKey,
+          {
             algorithm: 'RS256',
             expiresIn: "30m"
           });
