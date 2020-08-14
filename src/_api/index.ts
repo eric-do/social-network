@@ -2,10 +2,7 @@ import axios from 'axios';
 import { ITweet, ISocialInfo } from '../_types'
 
 const fetchTimeline = async (handle: string) : Promise<ITweet[]> => {
-  const options = {
-    params: { handle }
-  }
-  const { data }: { data: ITweet[]} = await axios.get(`/tweets/user_timeline`, options);
+  const { data }: { data: ITweet[]} = await axios.get(`/api/timeline/${handle}`);
   return data;
 }
 
