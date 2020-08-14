@@ -8,12 +8,12 @@ models.setDirectory(__dirname).bind(
       contactPoints: ["127.0.0.1"],
       protocolOptions: { port: 9042 },
       keyspace: "tweeter",
-      queryOptions: { consistency: models.consistencies.quorum },
+      queryOptions: { consistency: models.consistencies.one },
     },
     ormOptions: {
       defaultReplicationStrategy: {
         class: "SimpleStrategy",
-        replication_factor: 3,
+        replication_factor: 1,
       },
       migration: "safe",
     },

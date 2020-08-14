@@ -33,7 +33,33 @@ describe("POST /api/tweet/", () => {
         .instance
         .TweetsByHandle
         .findAsync({ handle: newTweet.handle }, {raw: true});
-     
+
+      const foundTweet = tweets[0];
+
+      const favorited = await models
+        .instance
+        .TweetCounter
+        .findOneAsync({ tweet_id: foundTweet.tweet_id })
+
+      foundTweet.should.deep.include(newTweet);
+      foundTweet.should.have.any.keys("tweet_id");
+      favorited.likes.toNumber().should.equal(0)
+      favorited.comments.toNumber().should.equal(0)
+      favorited.retweets.toNumber().should.equal(0)
+    } catch (err) {
+      throw err;
+    }
+  });
+
+  xit("should find inserted tweet from GET /api/timeline/:handle", async () => {
+    const newTweet = { ...getTweet(1) };
+
+    try {
+      const tweets = await models
+        .instance
+        .TweetsByHandle
+        .findAsync({ handle: newTweet.handle }, {raw: true});
+
       const foundTweet = tweets[0];
 
       const favorited = await models
@@ -53,7 +79,7 @@ describe("POST /api/tweet/", () => {
 
   it("should respond with an error status for an empty tweet", done => {
     const tweet = { ...getTweet(1) };
-    
+
     delete tweet.full_text;
 
     chai
