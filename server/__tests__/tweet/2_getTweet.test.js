@@ -13,7 +13,7 @@ describe("GET /api/tweet/:tweet_id", () => {
   it("should respond with a tweet and status 200 for a valid tweet ID", async () => {
     const handle = "eric";
 
-    try { 
+    try {
       const tweets = await models.instance.TweetsByHandle.findAsync({ handle }, { raw: true });
       const compareTweet = tweets[0];
       const { tweet_id } = compareTweet;
