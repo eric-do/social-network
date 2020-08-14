@@ -64,7 +64,7 @@ const getInvalidUser = issue => {
   return users[issue];
 }
 
-const populate = async () => {
+const populateUser = async () => {
   const user = { 
     ...getUser(0),
     registration: {
@@ -86,5 +86,5 @@ const populate = async () => {
 module.exports = {
   getUser,
   getInvalidUser,
-  populate,
+  populateUser,
 }

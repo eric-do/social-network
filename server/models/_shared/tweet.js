@@ -25,7 +25,10 @@ module.exports = {
     }
   },
   tweet_id: {
-    type: "bigint"
+    type: "timeuuid",
+    rule: {
+      required: true
+    }
   },
   tweet_date: {
     type: "timestamp",
